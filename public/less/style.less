@@ -1,0 +1,304 @@
+// Colors
+@nav-color: #2B2B2B;
+@content-color: #DE1B1B;
+@footer-color: #2B2B2B;
+
+// Hights
+@nav-height: 8%;
+@content-height: 87%;
+@footer-height: 5%;
+
+.pos-absolute {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+
+* { margin: 0; padding: 0; }
+body {
+    font-family: Arial;
+    margin: auto;
+    .pos-absolute;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+}
+
+nav {
+    width: 100%;
+    height: @nav-height;
+    background-color: @nav-color;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    ul {
+        display: flex;
+        justify-content: flex-end;
+        list-style-type: none;
+
+        li {
+            display: flex;
+            align-items: center;
+            height: 1.7em;
+            font-size: 1.2em;
+            border-right: 2px solid #fff;
+            padding: 0 15px;
+            transition: 0.3s all;
+            color: #fff;
+
+            &:last-child { border: none; }
+
+            &:hover {
+                text-shadow: 0 0 2px #000;
+                cursor: pointer;
+                color: #DE1B1B;
+            }
+        } // close li
+        
+        li#logoutMenuBtn {
+           display: none;
+        }
+        
+        p {
+            display: none;
+            color: #fff;
+            margin-top: 0.5em;
+            margin-right: 5em;
+        }
+    }
+} // close nav
+
+#content {
+    width: 100%;
+    height: @content-height;
+    display: flex;
+    flex-direction: column;
+    background-color: @content-color;
+
+    .row {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .box {
+            margin: 0 40px;
+
+            img {
+                width: 180px;
+                height: auto;
+                transition: 0.4s all;
+                box-shadow: 0 0 2px #000;
+                border-radius: 3px;
+
+                &:hover {
+                    cursor: pointer;
+                    transform: scale(1.7);
+                }
+            }
+            
+            p.title, p.author {
+                width: 180px;
+                text-align: center;
+                font-weight: bold;
+                font-size: 0.7em;
+                color: #fff;
+                text-shadow: 0 0 1px #000;
+                
+                &::before {
+                    color: #20ccff;
+                    text-shadow: 0 0 1px #000;
+                    content: "Tytuł: ";
+                }
+            }
+            
+            p.author::before {
+                content: "Autor: ";
+            }
+            
+        } // close .box
+    } // close .row
+    
+    #uploadBox {
+        display: none;
+        width: 400px;
+        height: 200px;
+        border: 1px solid #000;
+        background-color: #114183;
+        .pos-absolute;
+        margin: auto;
+        
+        #closeUpload {
+            width: 25px;
+            height: 25px;
+            float: right;
+            font-weight: bold;
+            font-size: 16px;
+            background-color: #f00;
+            border: none;
+            color: #fff;            
+            
+            &:hover {
+                cursor: pointer;
+                box-shadow: 0px 0px 2px #000;
+            }
+        } // close #closeUpload
+        
+        h1 {
+            display: flex;
+            justify-content: center;
+            color: #fff;
+            margin-top: 30px;
+        }
+        
+        #selectFileInput {
+            margin-top: 30px;
+            margin-left: 80px;
+            width: 200px;
+            color: #fff;
+        }
+        
+        #imageTitle {
+            width: 200px;
+            height: 25px;
+            margin-top: 6px;
+            margin-left: 80px;
+        }
+        
+        #uploadFileBtn {
+            width: 200px;
+            margin-top: 6px;
+            margin-left: 80px;
+            height: 25px;
+            display: flex;
+            justify-content: center;
+            align-self: center;
+            text-align: center;
+        }
+    }
+    
+    #logInBox {
+        display: none;
+        width: 400px;
+        height: 200px;
+        border: 1px solid #000;
+        background-color: #114183;
+        .pos-absolute;
+        margin: auto;
+        
+        #closeLogIn {
+            width: 25px;
+            height: 25px;
+            float: right;
+            font-weight: bold;
+            font-size: 16px;
+            background-color: #f00;
+            border: none;
+            color: #fff;            
+            
+            &:hover {
+                cursor: pointer;
+                box-shadow: 0px 0px 2px #000;
+            }
+        }
+        
+        h1 {
+            display: flex;
+            justify-content: center;
+            color: #fff;
+            margin-top: 30px;
+        }
+        
+        .loginInputs {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+            
+            input {
+                width: 200px;
+                height: 30px;
+
+                &:nth-child(2) { margin-top: 5px; }
+            }
+            
+            input[type='submit'] {
+                width: 100px;
+                margin-top: 5px;
+                border: none;
+                
+                &:hover {
+                    cursor: pointer;
+                    background-color: #5f7cdd;
+                    color: #fff;
+                }
+            }
+        }    
+    } // close .logInBox
+    
+    #loginErrorBox {
+        display: none;
+        width: 400px;
+        height: 120px;
+        border: 1px solid #000;
+        background-color: #114183;
+        .pos-absolute;
+        margin: auto;
+        
+        #closeErrorBox {
+            width: 25px;
+            height: 25px;
+            float: right;
+            font-weight: bold;
+            font-size: 16px;
+            background-color: #f00;
+            border: none;
+            color: #fff;            
+            
+            &:hover {
+                cursor: pointer;
+                box-shadow: 0px 0px 2px #000;
+            }
+        }
+        
+        h1 {
+            display: flex;
+            justify-content: center;
+            color: #fff;
+            margin-top: 30px;
+        }
+        
+        h2 {
+            display: flex;
+            justify-content: center;
+            color: #fff;
+            font-weight: 100;
+        }
+        
+    } // close .loginErrorBox
+    
+    
+} // close .content
+
+footer {
+    width: 100%;
+    height: @footer-height;
+    display: flex;
+    background-color: @footer-color;
+    justify-content: center;
+    align-items: center;
+    
+    p {
+        font-size: 12px;
+        color: #fff;
+    }
+} // close footer

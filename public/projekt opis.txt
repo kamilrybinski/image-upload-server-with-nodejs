@@ -1,0 +1,12 @@
+Projekt Node.js
+
+temat: serwer obrazków
+
+- baza danych u¿ytkowników
+- katalogi dla obrazków
+- logowanie i rejestracja u¿ytkowników
+- bez logowania nie mo¿na uploadowaæ
+- podczas uploadowania mo¿na wybraæ czy obrazek ma byæ publiczny czy prywatny
+	+ je¿eli jest publiczny to bêdzie na stronie g³ównej i u u¿ytkownika na koncie
+	+ je¿eli prywatny to tylko u u¿ytkownika
+- mo¿liwoœæ komentowania obrazków publicznych
