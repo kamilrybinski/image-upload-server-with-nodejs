@@ -1,6 +1,7 @@
 /* jshint node: true */
 var app = require("express")();
 var httpServer = require("http").Server(app);
+var multer = require('multer');
 var io = require("socket.io")(httpServer);
 
 var static = require('serve-static');
@@ -17,29 +18,28 @@ app.use(static(path.join(__dirname, '/public')));
 
 // Konfiguracja multera
 app.use(multer({
-	dest: './upload',
+	dest: 'public/upload2/',
 	rename: function (fieldname, filename) {
-		return filename + Date.now()
+		return filename.replace(/\W+/g, '-').toLowerCase() + Date.now()
 	},
-onFileUploadStart: function (file) {
-	console.log('Rozpoczynanie wrzucania ' + file.originalname);
-	uploaded = true;
-},
-onFileUploadComplete: function (file) {
-	console.log('Plik ' + file.fieldname + ' jest wrzucany do ' + file.path);
-	uploaded = true;
-}
+	onFileUploadStart: function (file) {
+		uploaded = true;
+	},
+	onFileUploadComplete: function (file) {
+		uploaded = true;
+	}
 }));
 
 app.get('/', function (req, res) {
 	res.sendfile('index.html');
 });
 
-app.post('/upload', function (req, res) {
+app.post('public/upload2/', function (req, res) {
 	if (uploaded == true) {
 		res.end('Plik wrzucony');
+	} else {
+		res.end('Błąd pliku');
 	}
-	
 });
 
 httpServer.listen(port, function () {
