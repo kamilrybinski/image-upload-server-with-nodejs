@@ -1,4 +1,2 @@
-projectTIN
+Projekt w Node.js na zaliczenie przedmiotu TIN.
 ===============================
-
-repository for project
