@@ -16,9 +16,10 @@ app.use('/js/jquery.min.map', static(__dirname + '/bower_components/jquery/dist/
 app.use(static(path.join(__dirname, '/public')));
 
 // Konfiguracja multera
-app.use(multer( { dest: './upload',
+app.use(multer({
+	dest: './upload',
 	rename: function (fieldname, filename) {
-		return filename.toLowerCase() + Date.now()
+		return filename + Date.now()
 	},
 onFileUploadStart: function (file) {
 	console.log('Rozpoczynanie wrzucania ' + file.originalname);
@@ -38,6 +39,7 @@ app.post('/upload', function (req, res) {
 	if (uploaded == true) {
 		res.end('Plik wrzucony');
 	}
+	
 });
 
 httpServer.listen(port, function () {
