@@ -87,13 +87,15 @@
 
     // Tworzenie galerii
     function createGallery() {
-        var images = document.getElementsByTagName('img'),
+        var hlinks = document.getElementsByTagName('a'),
+            images = document.getElementsByTagName('img'),
             p_titles = document.getElementsByClassName('title'),
             p_authors = document.getElementsByClassName('author'),
             quantityOnPage = 15,
             i = 0;
         
         for (i; i <= quantityOnPage - 1; i += 1) {
+            hlinks[i].href = imgPath + imgsNames[i];
             images[i].src = imgPath + imgsNames[i];
             p_titles[i].innerHTML = imgsTitles[i];
             p_authors[i].innerHTML = imgsAuthors[i];
@@ -102,43 +104,10 @@
     }
     
     
-    // Wrzucanie obrazka
-    function uploadImage() {
-        var myFile = document.getElementById('selectFileInput').files[0];
-    }
-    
-    
-    
-    
-    /*
-    function getAllFilesFromFolder(dir) {
-
-        var filesystem = require("fs"),
-            results = [];
-
-        filesystem.readdirSync(dir).forEach(function (file) {
-
-            file = dir + '/' + file;
-            var stat = filesystem.statSync(file);
-
-            if (stat && stat.isDirectory()) {
-                results = results.concat(getAllFilesFromFolder(file));
-            } else {
-                results.push(file);
-            }
-
-        });
-
-        //return results;
-        console.log(results);
-
-    }
-    */
     
 
     
     createGallery();
-    //getAllFilesFromFolder(imgPath);
 
     
 }());

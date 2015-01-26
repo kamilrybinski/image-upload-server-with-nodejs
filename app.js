@@ -20,9 +20,9 @@ app.use(static(path.join(__dirname, '/public')));
 
 // Konfiguracja multera
 app.use(multer({
-	dest: 'public/upload/',
+	dest: './public/upload3/',
 	rename: function (fieldname, filename) {
-		return filename + Date.now()
+		return filename + Date.now();
 	},
 	onFileUploadStart: function (file) {
         console.log("Wrzucanie pliku " + file.originalname + " rozpoczete.");
@@ -34,15 +34,16 @@ app.use(multer({
 }));
 
 app.get('/', function (req, res) {
-	res.sendfile('/public/index.html');
+	//res.sendfile('./public/index.html');
+    res.sendfile(__dirname + '/index.html');
 });
 
-app.post('/public/upload', function (req, res) {
-	if (done == true) {
+app.post('', function (req, res) {
+	if (done === true) {
         console.log(req.files);
 		res.end('Plik wrzucony');
 	} else {
-		res.end('Błąd pliku');
+		res.end('Blad pliku');
 	}
 });
 
