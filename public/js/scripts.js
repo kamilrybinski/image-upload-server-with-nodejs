@@ -22,7 +22,7 @@
         imgPath = 'upload/',
         imgsTitles = ['New York', 'New York', 'Nowy Jork', 'Waszyngton', 'Paris', 'Paris', 'Paris', 'Paris', 'Rio', 'Rio De Janeiro', 'Budapest', 'Budapeszt', 'Budapeszt', 'Budapeszt', 'Budapest'],
         imgsAuthors = ['Kamil', 'Kamil', 'test', 'Admin', 'Anonimowy', 'test1', 'test2', 'test3', 'test', 'test4', 'tetet', 'Anonimowy', 'Kamil', 'test7', 'test10'];
-        
+
 
     // loginBox
     loginMenuBtn.onclick = function () {
@@ -120,8 +120,8 @@
                 p_authors[k].innerHTML = imgsAuthors[k];
             }
         }); 
-        //console.log(imgNames);
     }
 
+    
     createGallery(); 
 }());
