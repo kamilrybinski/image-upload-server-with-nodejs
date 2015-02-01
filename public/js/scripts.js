@@ -20,7 +20,6 @@
         whoIsLogged = '',
         
         imgPath = 'upload/',
-        imgsNames = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg', '14.jpg', '15.jpg'],
         imgsTitles = ['New York', 'New York', 'Nowy Jork', 'Waszyngton', 'Paris', 'Paris', 'Paris', 'Paris', 'Rio', 'Rio De Janeiro', 'Budapest', 'Budapeszt', 'Budapeszt', 'Budapeszt', 'Budapest'],
         imgsAuthors = ['Kamil', 'Kamil', 'test', 'Admin', 'Anonimowy', 'test1', 'test2', 'test3', 'test', 'test4', 'tetet', 'Anonimowy', 'Kamil', 'test7', 'test10'];
         
@@ -89,25 +88,40 @@
     function createGallery() {
         var hlinks = document.getElementsByTagName('a'),
             images = document.getElementsByTagName('img'),
-            p_titles = document.getElementsByClassName('title'),
+            p_imgNums = document.getElementsByClassName('imgNum'),
             p_authors = document.getElementsByClassName('author'),
-            quantityOnPage = 15,
-            i = 0;
-        
-        for (i; i <= quantityOnPage - 1; i += 1) {
-            hlinks[i].href = imgPath + imgsNames[i];
-            images[i].src = imgPath + imgsNames[i];
-            p_titles[i].innerHTML = imgsTitles[i];
-            p_authors[i].innerHTML = imgsAuthors[i];
-        }
-        
+            //quantityOnPage = 15,
+            i = 0,
+            j = 0,
+            k = 0;
+
+        var imgNames = [];
+        $.getJSON("db/db.json", function (data) {
+            var items = [],
+                itemsL = 0;
+            $.each(data, function(key, val) {
+                itemsL = val.length; // ilosc plikow w db.json
+                console.log("Dlugosc tablicy: " + itemsL);
+                for (i; i < itemsL; i++) {
+                    items.push(val[i]);
+                }
+            });
+            for (j; j < itemsL; j++) {
+                imgNames.push(items[j].nazwa);
+            }
+            console.log(imgNames);
+            
+            // ladowanie obrazkow
+            var l = itemsL;
+            for (k, l; k < itemsL; k++, l--) {
+                hlinks[k].href = imgPath + imgNames[k] + ".jpg";
+                images[k].src = imgPath + imgNames[k] + ".jpg";
+                p_imgNums[k].innerHTML = [l];
+                p_authors[k].innerHTML = imgsAuthors[k];
+            }
+        }); 
+        //console.log(imgNames);
     }
-    
-    
-    
 
-    
-    createGallery();
-
-    
+    createGallery(); 
 }());
