@@ -105,7 +105,7 @@ nav {
                 }
             }
             
-            p.imgNum, p.author {
+            p.imgNum, p.author, p.addDate {
                 width: 180px;
                 text-align: center;
                 font-weight: bold;
@@ -122,6 +122,10 @@ nav {
             
             p.author::before {
                 content: "Autor: ";
+            }
+            
+            p.addDate::before {
+                content: "Data dodania: ";
             }
             
         } // close .box

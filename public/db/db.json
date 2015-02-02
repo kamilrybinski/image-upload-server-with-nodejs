@@ -1,16 +1,14 @@
 {
    "photos": [
       {
-         "nazwa": "12-2015-1-1-9-56-6",
-         "autor": "Kamil"
+         "nazwa": "5-2015-1-1-11-1-47",
+         "autor": "Anonimowy",
+         "data_dodania": "2.11.2015"
       },
       {
-         "nazwa": "5-2015-1-1-9-52-5",
-         "autor": "Anonimowy"
-      },
-      {
-         "nazwa": "11-2015-1-1-9-52-5",
-         "autor": "Anonimowy"
+         "nazwa": "Wieża Eiffla-2015-1-1-11-1-47",
+         "autor": "Anonimowy",
+         "data_dodania": "2.11.2015"
       }
    ]
 }

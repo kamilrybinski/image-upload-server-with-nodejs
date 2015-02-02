@@ -18,8 +18,9 @@ app.use(static(path.join(__dirname, '/public')));
 
 var author = "Anonimowy";
 var imgQty = 0;
-var date = new Date();
-var d = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay() + "-" + date.getHours() + "-" + date.getMinutes() + "-" + date.getSeconds();
+var d = new Date();
+var date_img = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDay() + "-" + d.getHours() + "-" + d.getMinutes() + "-" + d.getSeconds();
+var add_date = d.getDate() + "." + d.getMonth()+1 + "." + d.getFullYear();
 
 
 fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
@@ -31,8 +32,9 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
         dest: './public/upload/',
         rename: function (fieldname, filename) {
             var obj = {
-                "nazwa": filename + "-" + d,
-                "autor": author 
+                "nazwa": filename + "-" + date_img,
+                "autor": author,
+                "data_dodania": add_date
             };
             json.photos.unshift(obj);
             
@@ -44,7 +46,7 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
                 }
             });
 
-            return filename + "-" + d;
+            return filename + "-" + date_img;
             },
         onFileUploadStart: function (file) {
           console.log(file.originalname + ' is starting ...');

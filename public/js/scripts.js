@@ -1,6 +1,5 @@
 (function () {
     /*jshint globalstrict: true, devel: true*/
-    
     'use strict';
 
     var loginMenuBtn = document.getElementById('loginMenuBtn'),
@@ -87,12 +86,14 @@
             images = document.getElementsByTagName('img'),
             p_imgNums = document.getElementsByClassName('imgNum'),
             p_authors = document.getElementsByClassName('author'),
+            p_addDate = document.getElementsByClassName('addDate'),
             i = 0,
             j = 0,
             k = 0;
 
         var imgNames = [],
-            imgAuthors = [];
+            imgAuthors = [],
+            imgDates = [];
         
         $.getJSON("db/db.json", function (data) {
             var items = [],
@@ -104,17 +105,16 @@
                 for (i; i < itemsLen; i++) {
                     items.push(val[i]);
                 }
-                //console.log("items[0]:");
-                //console.log(items[0]);
             });
             
             for (j; j < itemsLen; j++) {
                 imgNames.push(items[j].nazwa);
                 imgAuthors.push(items[j].autor);
+                imgDates.push(items[j].data_dodania)
             }
             console.log(imgNames); //nazwy obrazkow
             console.log(imgAuthors); // autorzy obrazkow
-            
+            console.log(imgDates); // daty dodania obrazkow
             
             // ladowanie obrazkow
             var l = itemsLen;
@@ -123,6 +123,7 @@
                 images[k].src = imgPath + imgNames[k] + ".jpg";
                 p_imgNums[k].innerHTML = l;
                 p_authors[k].innerHTML = imgAuthors[k];
+                p_addDate[k].innerHTML = imgDates[k];
             }
         }); 
     }
