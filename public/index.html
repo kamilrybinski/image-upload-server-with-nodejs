@@ -12,75 +12,52 @@
         <div class="container">
             <nav>
                 <ul>
+                   <p id="message"></p>
+                   <p id="text"></p>
                     <p id="who">Zalogowany jako: <span id="whoName"></span></p>
-                    <li id="logoutMenuBtn">Wyloguj</li>
                     <input type="text" name="username" id="username" placeholder="Nazwa użytkownika">
-                    <li id="loginMenuBtn">Zaloguj</li>
+                    <input id="open" type="button" value="Zaloguj">
+                    <input id="close" type="button" value="Wyloguj">
                     <li id="uploadMenuBtn">Wrzuć obrazek</li>
+                    
                 </ul>
             </nav>
+            
 
             <div id="content">
                
+                <div id="imageComments">
+                    <button id="closeComments">x</button>
+                    <h1>Komentarze</h1>
+                </div>
+
                <div class="row">
                     <div class="box">
-                        <a href=""><img src=""></a>
+                        <img src="">
                         <p class="imgNum"></p>
                         <p class="author"></p>
                         <p class="addDate"></p>
                     </div>
                     <div class="box">
-                        <a href=""><img src=""></a>
+                        <img src="">
                         <p class="imgNum"></p>
                         <p class="author"></p>
                         <p class="addDate"></p>
                     </div>
                     <div class="box">
-                        <a href=""><img src=""></a>
+                        <img src="">
                         <p class="imgNum"></p>
                         <p class="author"></p>
                         <p class="addDate"></p>
                     </div>
                     <div class="box">
-                        <a href=""><img src=""></a>
+                        <img src="">
                         <p class="imgNum"></p>
                         <p class="author"></p>
                         <p class="addDate"></p>
                     </div>
                     <div class="box">
-                        <a href=""><img src=""></a>
-                        <p class="imgNum"></p>
-                        <p class="author"></p>
-                        <p class="addDate"></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="box">
-                        <a href=""><img src=""></a>
-                        <p class="imgNum"></p>
-                        <p class="author"></p>
-                        <p class="addDate"></p>
-                    </div>
-                    <div class="box">
-                        <a href=""><img src=""></a>
-                        <p class="imgNum"></p>
-                        <p class="author"></p>
-                        <p class="addDate"></p>
-                    </div>
-                    <div class="box">
-                        <a href=""><img src=""></a>
-                        <p class="imgNum"></p>
-                        <p class="author"></p>
-                        <p class="addDate"></p>
-                    </div>
-                    <div class="box">
-                        <a href=""><img src=""></a>
-                        <p class="imgNum"></p>
-                        <p class="author"></p>
-                        <p class="addDate"></p>
-                    </div>
-                    <div class="box">
-                        <a href=""><img src=""></a>
+                        <img src="">
                         <p class="imgNum"></p>
                         <p class="author"></p>
                         <p class="addDate"></p>
@@ -88,31 +65,63 @@
                 </div>
                 <div class="row">
                     <div class="box">
-                        <a href=""><img src=""></a>
+                        <img src="">
                         <p class="imgNum"></p>
                         <p class="author"></p>
                         <p class="addDate"></p>
                     </div>
                     <div class="box">
-                        <a href=""><img src=""></a>
+                        <img src="">
                         <p class="imgNum"></p>
                         <p class="author"></p>
                         <p class="addDate"></p>
                     </div>
                     <div class="box">
-                        <a href=""><img src=""></a>
+                        <img src="">
                         <p class="imgNum"></p>
                         <p class="author"></p>
                         <p class="addDate"></p>
                     </div>
                     <div class="box">
-                        <a href=""><img src=""></a>
+                        <img src="">
                         <p class="imgNum"></p>
                         <p class="author"></p>
                         <p class="addDate"></p>
                     </div>
                     <div class="box">
-                        <a href=""><img src=""></a>
+                        <img src="">
+                        <p class="imgNum"></p>
+                        <p class="author"></p>
+                        <p class="addDate"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="box">
+                        <img src="">
+                        <p class="imgNum"></p>
+                        <p class="author"></p>
+                        <p class="addDate"></p>
+                    </div>
+                    <div class="box">
+                        <img src="">
+                        <p class="imgNum"></p>
+                        <p class="author"></p>
+                        <p class="addDate"></p>
+                    </div>
+                    <div class="box">
+                        <img src="">
+                        <p class="imgNum"></p>
+                        <p class="author"></p>
+                        <p class="addDate"></p>
+                    </div>
+                    <div class="box">
+                        <img src="">
+                        <p class="imgNum"></p>
+                        <p class="author"></p>
+                        <p class="addDate"></p>
+                    </div>
+                    <div class="box">
+                        <img src="">
                         <p class="imgNum"></p>
                         <p class="author"></p>
                         <p class="addDate"></p>
@@ -124,7 +133,7 @@
                     <h1>Wrzuć obrazek</h1>
                     <form id="uploadForm" enctype="multipart/form-data" action="/" method="post">
                         <input id="selectFileInput" type="file" name="myfile">
-                        <input type="submit">
+                        <input type="submit" id="uploadImageInput">
                     </form>
                 </div>
 
@@ -134,6 +143,7 @@
             </footer>
         </div>
     
+    <script src="/socket.io/socket.io.js"></script>
     <script src="js/scripts.js"></script>
         
     </body>

@@ -30,6 +30,7 @@ body {
     margin: auto;
 }
 
+
 nav {
     width: 100%;
     height: @nav-height;
@@ -85,6 +86,42 @@ nav {
     display: flex;
     flex-direction: column;
     background-color: @content-color;
+
+    #imageComments {
+        display: block;
+        width: 90%;
+        height: 90%;
+        border: 1px solid #000;
+        background-color: #114183;
+        background-image: url(../img/overlay.png) repeat;
+        .pos-absolute;
+        margin: auto;
+
+        #closeComments {
+            width: 25px;
+            height: 25px;
+            float: right;
+            font-weight: bold;
+            font-size: 16px;
+            background-color: #f00;
+            border: none;
+            color: #fff;            
+            
+            &:hover {
+                cursor: pointer;
+                box-shadow: 0px 0px 2px #000;
+            }
+        } 
+        
+        h1 {
+            display: flex;
+            justify-content: center;
+            color: #fff;
+            margin-top: 20px;
+        }
+
+    }
+    
 
     .row {
         width: 100%;
@@ -172,13 +209,6 @@ nav {
             margin-left: 80px;
             width: 200px;
             color: #fff;
-        }
-        
-        #imageTitle {
-            width: 200px;
-            height: 25px;
-            margin-top: 6px;
-            margin-left: 80px;
         }
         
         #uploadFileBtn {

@@ -18,6 +18,7 @@ app.use(static(path.join(__dirname, '/public')));
 
 
 var loggedUser = "Anonimowy";
+var komentarze = [];
 
 var imgQty = 0;
 var d = new Date(),
@@ -72,12 +73,12 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
         res.sendfile('./public/index.html');
     });
 
-    app.post('/', function (req, res) {        
+    app.post('/', function (req, res) {
         if (uploaded === true) {
             console.log(req.files);
             console.log('Plik wrzucony');
-            res.redirect('back');
-        } 
+            //res.redirect('back');
+        }
         else {
             console.log('Blad pliku');        
             res.end('Blad pliku');
@@ -85,9 +86,14 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
     });
 });
 
+
 io.sockets.on("connection", function (socket) {
+    socket.on("login", function (username) {
+        loggedUser = username;
+        console.log(loggedUser);
+    });
     socket.on("message", function (data) {
-        io.sockets.emit("echo", "No tak, tak – dostałem: " + data);
+        io.sockets.emit("echo", data);
     });
     socket.on("error", function (err) {
         console.dir(err);
