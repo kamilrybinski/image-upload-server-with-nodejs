@@ -72,9 +72,7 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
         res.sendfile('./public/index.html');
     });
 
-    app.post('/', function (req, res) {
-        loggedUser = req.body.username;
-        
+    app.post('/', function (req, res) {        
         if (uploaded === true) {
             console.log(req.files);
             console.log('Plik wrzucony');
@@ -85,7 +83,15 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
             res.end('Blad pliku');
         }
     });
+});
 
+io.sockets.on("connection", function (socket) {
+    socket.on("message", function (data) {
+        io.sockets.emit("echo", "No tak, tak – dostałem: " + data);
+    });
+    socket.on("error", function (err) {
+        console.dir(err);
+    });
 });
 
 

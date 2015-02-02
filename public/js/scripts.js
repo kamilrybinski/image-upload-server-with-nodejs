@@ -1,6 +1,8 @@
-(function () {
-    /*jshint globalstrict: true, devel: true*/
-    'use strict';
+/* jshint browser: true, globalstrict: true, devel: true */
+/* global io: false */
+"use strict";
+    
+window.addEventListener("load", function (event) {
 
     var loginMenuBtn = document.getElementById('loginMenuBtn'),
         logoutMenuBtn = document.getElementById('logoutMenuBtn'),
@@ -101,4 +103,4 @@
         createGallery();
     }, 300);
     
-}());
+});
