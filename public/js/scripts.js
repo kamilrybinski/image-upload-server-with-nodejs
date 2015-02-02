@@ -99,6 +99,6 @@
     // Tworzenie galerii
     setInterval(function () {
         createGallery();
-    }, 100);
+    }, 300);
     
 }());

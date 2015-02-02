@@ -2,7 +2,8 @@
 var app = require("express")();
 var httpServer = require("http").Server(app);
 var io = require("socket.io")(httpServer);
-
+var $ = require('cheerio');
+    
 var static = require('serve-static');
 var less = require('less-middleware');
 var path = require('path');
@@ -17,8 +18,6 @@ app.use('/upload', static(__dirname + '/public/upload'));
 app.use(static(path.join(__dirname, '/public')));
 
 
-//var whowho = $('#whoName');
-//console.log('logged user = ' + whowho.text());
 var loggedUser = "Anonimowy";
 
 var imgQty = 0;
@@ -36,7 +35,6 @@ if (sekundy < 10)
 
 var img_date = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDay() + "-" + godziny + "-" + minuty + "-" + sekundy;
 var add_date = d.getDate() + "." + d.getMonth()+1 + "." + d.getFullYear() + " " + godziny + ":" + minuty;
-
 
 fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
     if (err) throw err;
