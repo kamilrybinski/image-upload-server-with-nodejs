@@ -28,6 +28,7 @@
         var socket;
         
         var username = document.getElementById('username');
+        var uploadImageInput = document.getElementById('uploadImageInput');
         
         close.disabled = true;
         send.disabled = true;
@@ -54,15 +55,14 @@
             socket.on("error", function (err) {
                 message.textContent = "Błąd połączenia z serwerem: '" + JSON.stringify(err) + "'";
             });
-            socket.on("echo", function (data) {
+            socket.on("komentuj", function (data) {
                 var new_p = document.createElement('p');
-                //message.textContent = data;
                 new_p.innerHTML = "<strong>" + data.username + "</strong>: " + data.text;
                 message.appendChild(new_p);
             });
         });
 
-        // Zamknij połączenie po kliknięciu guzika „Rozłącz”
+        // Zamyka polaczenie po kliknieciu "Wyloguj"
         close.addEventListener("click", function (event) {
             close.disabled = true;
             send.disabled = true;
@@ -72,12 +72,16 @@
             console.dir(socket);
         });
 
-        // Wyślij komunikat do serwera po naciśnięciu guzika „Wyślij”
+        // Wysyla komentarz po nacisnieciu przycisku "Dodaj"
         send.addEventListener("click", function (event) {
             socket.emit('message', {text: text.value, username: username.value});
-            //console.log('Wysłałem wiadomość: ' + text.value);
             text.value = "";
         });
+        
+        uploadImageInput.addEventListener('click', function(event) {
+           socket.emit("add", username.value); 
+        });
+        
     
     });
     

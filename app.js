@@ -36,7 +36,7 @@ if (sekundy < 10)
 
 var img_date = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDay() + "-" + godziny + "-" + minuty + "-" + sekundy;
 var add_date = d.getDate() + "." + d.getMonth()+1 + "." + d.getFullYear() + " " + godziny + ":" + minuty;
-
+/*
 fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
     if (err) throw err;
     var json = JSON.parse(data);
@@ -78,7 +78,6 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
         if (uploaded === true) {
             console.log(req.files);
             console.log('Plik wrzucony');
-            //res.redirect('back');
         }
         else {
             console.log('Blad pliku');        
@@ -86,20 +85,73 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
         }
     });
 });
-
+*/
 
 io.sockets.on("connection", function (socket) {
     socket.on("login", function (username) {
         socket.username = username;
         users[username] = socket;
-        //loggedUser = users[username];
+
         for (var i = 0; i < komentarze.length; i++) {
-            socket.emit("echo", komentarze[i]);
+            socket.emit("komentuj", komentarze[i]);
         }
     });
+    
+    socket.on("add", function (datax) {
+           fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
+            if (err) throw err;
+            var json = JSON.parse(data);
+
+            // Konfiguracja multera
+            app.use(multer({
+                dest: './public/upload/',
+                rename: function (fieldname, filename) {
+                    var obj = {
+                        "nazwa": filename + "-" + img_date,
+                        "autor": datax,
+                        "data_dodania": add_date
+                    };
+                    json.photos.unshift(obj);
+
+                    fs.writeFile('public/db/db.json', JSON.stringify(json, null, 4), function(err) {
+                        if (err) {
+                          console.log(err);
+                        } else {
+                          console.log("Dane zostały zapisane do: db.json");
+                        }
+                    });
+
+                    return filename + "-" + img_date;
+                    },
+                onFileUploadStart: function (file) {
+                  console.log(file.originalname + ' is starting ...');
+                },
+                onFileUploadComplete: function (file) {
+                  console.log(file.fieldname + ' uploaded to  ' + file.path);
+                  uploaded = true;
+                }
+            }));
+            app.get('/', function (req, res) {
+                res.sendfile('./public/index.html');
+            });
+
+            app.post('/', function (req, res) {
+                if (uploaded === true) {
+                    console.log(req.files);
+                    console.log('Plik wrzucony');
+                }
+                else {
+                    console.log('Blad pliku');        
+                    res.end('Blad pliku');
+                }
+            });
+        });
+        return 0;
+    });
+    
     socket.on("message", function (data) {
         komentarze.push(data);
-        io.sockets.emit("echo", data);
+        io.sockets.emit("komentuj", data);
     });
     socket.on("error", function (err) {
         console.dir(err);
