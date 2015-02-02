@@ -8,15 +8,13 @@
         uploadMenuBtn = document.getElementById('uploadMenuBtn'),
         closeLoginBox = document.getElementById('closeLogIn'),
         closeUploadBox = document.getElementById('closeUpload'),
-        closeErrorBox = document.getElementById('closeErrorBox'),
         logInBox = document.getElementById('logInBox'),
         uploadBox = document.getElementById('uploadBox'),
-        loginErrorBox = document.getElementById('loginErrorBox'),
         who = document.getElementById('who'),
         whoName = document.getElementById('whoName'),
         
         isLogged = false,
-        whoIsLogged = '';
+        whoIsLogged = "";
 
 
     // loginBox
@@ -33,11 +31,6 @@
     };
     closeUploadBox.onclick = function () {
         document.getElementById('uploadBox').style.display = 'none';
-    };
-    
-    // loginErrorBox
-    closeErrorBox.onclick = function () {
-        loginErrorBox.style.display = 'none';
     };
 
     
@@ -58,14 +51,14 @@
             loginMenuBtn.style.display = 'none';
             isLogged = true;
         } else {
-            loginErrorBox.style.display = 'block';
+            //loginErrorBox.style.display = 'block'; //usun
             isLogged = false;
         }
         
         document.getElementById('username').value = "";
         document.getElementById('password').value = "";
     }
-    //loginBtn.addEventListener('click', login, false); //zmiana
+    //loginBtn.addEventListener('click', login, false); //usun
 
     
     // Wylogowanie
