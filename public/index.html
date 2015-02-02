@@ -125,19 +125,18 @@
                         <input id="selectFileInput" type="file" name="myfile">
                         <input type="submit">
                     </form>
-
                 </div>
-                 
-                <div id="logInBox">
+
+               <div id="logInBox">
                     <button id="closeLogIn">x</button>
                     <h1>Zaloguj się</h1>
-                    <div class="loginInputs">
-                        <input id="username" type="text" placeholder="Username">
-                        <input id="password" type="password" placeholder="Password">
-                        <input id="loginBtn" type="submit" value="Zaloguj">
-                    </div>
+                    <form action="" method="post">
+                        <input type="text" id="username" name="username" placeholder="Login">
+                        <input type="password" id="password" name="password" placeholder="Hasło">
+                        <input type="submit" value="Zaloguj">
+                    </form>
                 </div>
-                 
+                
                 <div id="loginErrorBox">
                     <button id="closeErrorBox">x</button>
                     <h1>Problem z logowaniem..</h1>

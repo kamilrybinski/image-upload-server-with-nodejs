@@ -16,11 +16,14 @@ app.use('/upload', static(__dirname + '/public/upload'));
 app.use(static(path.join(__dirname, '/public')));
 
 
-var author = "Anonimowy";
+var loggedUser = "Anonimowy";
 var imgQty = 0;
 var d = new Date();
 var date_img = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDay() + "-" + d.getHours() + "-" + d.getMinutes() + "-" + d.getSeconds();
-var add_date = d.getDate() + "." + d.getMonth()+1 + "." + d.getFullYear();
+var add_date = d.getDate() + "." + d.getMonth()+1 + "." + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes();;
+
+var users = ["kamil", "admin"],
+    passwords = ["kamil1", "admin1"];
 
 
 fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
@@ -33,12 +36,12 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
         rename: function (fieldname, filename) {
             var obj = {
                 "nazwa": filename + "-" + date_img,
-                "autor": author,
+                "autor": loggedUser,
                 "data_dodania": add_date
             };
             json.photos.unshift(obj);
             
-            fs.writeFile('public/db/db.json', JSON.stringify(json, null, 3), function(err) {
+            fs.writeFile('public/db/db.json', JSON.stringify(json, null, 4), function(err) {
                 if (err) {
                   console.log(err);
                 } else {
@@ -55,7 +58,7 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
           console.log(file.fieldname + ' uploaded to  ' + file.path);
           done = true;
         }
-        }));
+    }));
     app.get('/', function (req, res) {
         res.sendfile('./public/index.html');
     });

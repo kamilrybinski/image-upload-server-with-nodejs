@@ -65,7 +65,7 @@
         document.getElementById('username').value = "";
         document.getElementById('password').value = "";
     }
-    loginBtn.addEventListener('click', login, false);
+    //loginBtn.addEventListener('click', login, false); //zmiana
 
     
     // Wylogowanie
