@@ -2,7 +2,6 @@
 var app = require("express")();
 var httpServer = require("http").Server(app);
 var io = require("socket.io")(httpServer);
-var $ = require('cheerio');
     
 var static = require('serve-static');
 var less = require('less-middleware');

@@ -76,7 +76,7 @@
                     items.push(val[i]);
                 }
             });
-            
+
             for (j; j < itemsLen; j++) {
                 imgNames.push(items[j].nazwa);
                 imgAuthors.push(items[j].autor);
@@ -92,7 +92,7 @@
                 p_authors[k].innerHTML = imgAuthors[k];
                 p_addDate[k].innerHTML = imgDates[k];
             }
-        }); 
+        });
     }
 
     
