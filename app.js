@@ -16,7 +16,12 @@ app.use('/upload', static(__dirname + '/public/upload'));
 app.use(static(path.join(__dirname, '/public')));
 
 
+var author = "Anonimowy";
 var imgQty = 0;
+var date = new Date();
+var d = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay() + "-" + date.getHours() + "-" + date.getMinutes() + "-" + date.getSeconds();
+
+
 fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
     if (err) throw err;
     var json = JSON.parse(data);
@@ -26,12 +31,12 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
         dest: './public/upload/',
         rename: function (fieldname, filename) {
             var obj = {
-                "nazwa": filename + "-" + ++imgQty
-                
+                "nazwa": filename + "-" + d,
+                "autor": author 
             };
             json.photos.unshift(obj);
             
-            fs.writeFile('public/db/db.json', JSON.stringify(json, null, 4), function(err) {
+            fs.writeFile('public/db/db.json', JSON.stringify(json, null, 3), function(err) {
                 if (err) {
                   console.log(err);
                 } else {
@@ -39,7 +44,7 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
                 }
             });
 
-            return filename + "-" + imgQty;
+            return filename + "-" + d;
             },
         onFileUploadStart: function (file) {
           console.log(file.originalname + ' is starting ...');

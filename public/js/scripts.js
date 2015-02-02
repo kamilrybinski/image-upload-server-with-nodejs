@@ -17,11 +17,7 @@
         whoName = document.getElementById('whoName'),
         
         isLogged = false,
-        whoIsLogged = '',
-        
-        imgPath = 'upload/',
-        imgsTitles = ['New York', 'New York', 'Nowy Jork', 'Waszyngton', 'Paris', 'Paris', 'Paris', 'Paris', 'Rio', 'Rio De Janeiro', 'Budapest', 'Budapeszt', 'Budapeszt', 'Budapeszt', 'Budapest'],
-        imgsAuthors = ['Kamil', 'Kamil', 'test', 'Admin', 'Anonimowy', 'test1', 'test2', 'test3', 'test', 'test4', 'tetet', 'Anonimowy', 'Kamil', 'test7', 'test10'];
+        whoIsLogged = '';
 
 
     // loginBox
@@ -86,38 +82,47 @@
 
     // Tworzenie galerii
     function createGallery() {
-        var hlinks = document.getElementsByTagName('a'),
+        var imgPath = 'upload/',
+            links = document.getElementsByTagName('a'),
             images = document.getElementsByTagName('img'),
             p_imgNums = document.getElementsByClassName('imgNum'),
             p_authors = document.getElementsByClassName('author'),
-            //quantityOnPage = 15,
             i = 0,
             j = 0,
             k = 0;
 
-        var imgNames = [];
+        var imgNames = [],
+            imgAuthors = [];
+        
         $.getJSON("db/db.json", function (data) {
             var items = [],
-                itemsL = 0;
+                itemsLen = 0;
             $.each(data, function(key, val) {
-                itemsL = val.length; // ilosc plikow w db.json
-                console.log("Dlugosc tablicy: " + itemsL);
-                for (i; i < itemsL; i++) {
+                itemsLen = val.length; // ilosc plikow w db.json
+                console.log("Dlugosc tablicy: " + itemsLen);
+                
+                for (i; i < itemsLen; i++) {
                     items.push(val[i]);
                 }
+                //console.log("items[0]:");
+                //console.log(items[0]);
             });
-            for (j; j < itemsL; j++) {
+            
+            for (j; j < itemsLen; j++) {
                 imgNames.push(items[j].nazwa);
+                imgAuthors.push(items[j].autor);
             }
-            console.log(imgNames);
+            console.log(imgNames); //nazwy obrazkow
+            console.log(imgAuthors); // autorzy obrazkow
+            
             
             // ladowanie obrazkow
-            var l = itemsL;
-            for (k, l; k < itemsL; k++, l--) {
-                hlinks[k].href = imgPath + imgNames[k] + ".jpg";
+            var l = itemsLen;
+            for (k, l; k < itemsLen; k++, l--) {
+                links[k].href = imgPath + imgNames[k] + ".jpg";
                 images[k].src = imgPath + imgNames[k] + ".jpg";
-                p_imgNums[k].innerHTML = [l];
-                p_authors[k].innerHTML = imgsAuthors[k];
+                p_imgNums[k].innerHTML = l;
+                p_authors[k].innerHTML = imgAuthors[k];
             }
         }); 
     }
