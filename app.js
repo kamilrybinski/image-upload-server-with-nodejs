@@ -17,6 +17,7 @@ app.use('/upload', static(__dirname + '/public/upload'));
 app.use(static(path.join(__dirname, '/public')));
 
 
+var users = {};
 var loggedUser = "Anonimowy";
 var komentarze = [];
 
@@ -28,7 +29,7 @@ var d = new Date(),
 
 if (godziny < 10)
     godziny = "0" + godziny;
-if (minuty < 10) 
+if (minuty < 10)
     minuty = "0" + minuty;
 if (sekundy < 10)
     sekundy = "0" + sekundy;
@@ -89,10 +90,15 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
 
 io.sockets.on("connection", function (socket) {
     socket.on("login", function (username) {
-        loggedUser = username;
-        console.log(loggedUser);
+        socket.username = username;
+        users[username] = socket;
+        //loggedUser = users[username];
+        for (var i = 0; i < komentarze.length; i++) {
+            socket.emit("echo", komentarze[i]);
+        }
     });
     socket.on("message", function (data) {
+        komentarze.push(data);
         io.sockets.emit("echo", data);
     });
     socket.on("error", function (err) {

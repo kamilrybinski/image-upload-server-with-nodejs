@@ -8,6 +8,7 @@
         uploadImageInput = document.getElementById('uploadImageInput'),
         uploadBox = document.getElementById('uploadBox'),
         imageComments = document.getElementById('imageComments'),
+        imageBig = document.getElementById('imageBig'),
         closeComments = document.getElementById('closeComments'),
         who = document.getElementById('who'),
         whoName = document.getElementById('whoName'),
@@ -21,15 +22,15 @@
         // logowanie
         var open = document.getElementById("open"); // zaloguj
         var close = document.getElementById("close"); // wyloguj
-        //var send = document.getElementById("loginMenuBtn"); // wyslij
+        var send = document.getElementById("send"); // wyslij
         var message = document.getElementById("message");
-        var text = document.getElementById("text");
+        var text = document.getElementById("comment");
         var socket;
         
         var username = document.getElementById('username');
         
         close.disabled = true;
-        //send.disabled = true;
+        send.disabled = true;
         
         open.addEventListener("click", function (event) {
             open.disabled = true;
@@ -38,7 +39,7 @@
             }
             socket.on('connect', function () {
                 close.disabled = false;
-                //send.disabled = false;
+                send.disabled = false;
                 username.disabled = true;
                 console.log('Nawiązano połączenie przez Socket.io');
                 // login
@@ -54,27 +55,30 @@
                 message.textContent = "Błąd połączenia z serwerem: '" + JSON.stringify(err) + "'";
             });
             socket.on("echo", function (data) {
-                message.textContent = data;
+                var new_p = document.createElement('p');
+                //message.textContent = data;
+                new_p.innerHTML = "<strong>" + data.username + "</strong>: " + data.text;
+                message.appendChild(new_p);
             });
         });
 
         // Zamknij połączenie po kliknięciu guzika „Rozłącz”
         close.addEventListener("click", function (event) {
             close.disabled = true;
-            //send.disabled = true;
+            send.disabled = true;
             open.disabled = false;
             message.textContent = "";
             socket.io.disconnect();
             console.dir(socket);
         });
-/*
+
         // Wyślij komunikat do serwera po naciśnięciu guzika „Wyślij”
         send.addEventListener("click", function (event) {
-            socket.emit('message', text.value);
+            socket.emit('message', {text: text.value, username: username.value});
             //console.log('Wysłałem wiadomość: ' + text.value);
             text.value = "";
         });
-    */
+    
     });
     
     
@@ -89,7 +93,6 @@
     
     function createGallery() {
         var imgPath = 'upload/',
-            //links = document.getElementsByTagName('a'),
             images = document.getElementsByTagName('img'),
             p_imgNums = document.getElementsByClassName('imgNum'),
             p_authors = document.getElementsByClassName('author'),
@@ -123,19 +126,24 @@
             // ladowanie obrazkow
             var l = itemsLen;
             for (k, l; k < itemsLen; k++, l--) {
-                //links[k].href = imgPath + imgNames[k] + ".jpg";
-                images[k].src = imgPath + imgNames[k] + ".jpg";
+                images[k+1].src = imgPath + imgNames[k] + ".jpg";
                 p_imgNums[k].innerHTML = l;
                 p_authors[k].innerHTML = imgAuthors[k];
                 p_addDate[k].innerHTML = imgDates[k];
             }
         });
+        
+        $('img').click(function () {
+            var getImg = $(this).attr('src');
+            $('#imageComments').css("display", "block");
+            $('#imageBig').attr('src', getImg);
+        });
     }
 
-    
+
     // Tworzenie galerii
     setInterval(function () {
         createGallery();
-    }, 300);
+    }, 400);
     
 }());

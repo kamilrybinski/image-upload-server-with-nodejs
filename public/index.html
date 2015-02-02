@@ -12,14 +12,11 @@
         <div class="container">
             <nav>
                 <ul>
-                   <p id="message"></p>
-                   <p id="text"></p>
                     <p id="who">Zalogowany jako: <span id="whoName"></span></p>
                     <input type="text" name="username" id="username" placeholder="Nazwa użytkownika">
                     <input id="open" type="button" value="Zaloguj">
                     <input id="close" type="button" value="Wyloguj">
                     <li id="uploadMenuBtn">Wrzuć obrazek</li>
-                    
                 </ul>
             </nav>
             
@@ -29,6 +26,17 @@
                 <div id="imageComments">
                     <button id="closeComments">x</button>
                     <h1>Komentarze</h1>
+                    <div id="leftSide">
+                        <img src="" id="imageBig">
+                    </div>
+                    <div id="rightSide">
+                        <input type="text" placeholder="Komentarz" name="comment" id="comment">
+                        <input type="button" id="send" value="Dodaj">
+                        <div id="allComments">
+                            <h3>Komentarze:</h3>
+                            <p id="message"></p>
+                        </div>
+                    </div>
                 </div>
 
                <div class="row">
@@ -142,7 +150,7 @@
                 <p>Copyright &copy; 2014 Kamil Rybinski</p>
             </footer>
         </div>
-    
+
     <script src="/socket.io/socket.io.js"></script>
     <script src="js/scripts.js"></script>
         

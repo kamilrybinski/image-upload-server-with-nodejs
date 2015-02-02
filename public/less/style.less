@@ -88,14 +88,14 @@ nav {
     background-color: @content-color;
 
     #imageComments {
-        display: block;
+        display: none; //tu
         width: 90%;
         height: 90%;
         border: 1px solid #000;
         background-color: #114183;
-        background-image: url(../img/overlay.png) repeat;
         .pos-absolute;
         margin: auto;
+        z-index: 1000;
 
         #closeComments {
             width: 25px;
@@ -119,7 +119,85 @@ nav {
             color: #fff;
             margin-top: 20px;
         }
+        
+        #leftSide {
+            //border: 1px solid #fff;
+            width: 49%;
+            height: 70%;
+            margin-top: 4%;
+            float: left;
+            
+            img#imageBig {
+                border: 1px solid #fff;
+                width: 94%;
+                height: auto;
+                margin: 20px 0 0 30px;
+                float: left;
+            }
+        }
+        
+        #rightSide {
+            //border: 1px solid #fff;
+            width: 49%;
+            height: 70%;
+            margin-top: 4%;
+            float: right;
+            
+            input#comment {
+                float: left;
+                width: 400px;
+                height: 30px;
+                margin-left: 10%;
+            }
 
+            input#send {
+                float: left;
+                width: 100px;
+                height: 34px;
+                margin-left: 30px;
+                
+                &:hover { cursor: pointer; }
+            }
+
+            #allComments {
+                display: block;
+                width: 85%;
+                height: 80%;
+                //border: 1px solid #fff;
+                float: left;
+                margin-top: 20px;
+                margin-left: 40px;
+                overflow-y: scroll;
+                
+                h3 {
+                    color: #fff;
+                    text-decoration: underline;
+                }
+                
+                p {
+                    color: #fff;
+                    font-size: 14px;
+                    margin-left: 5px;
+                    margin-top: 2px;
+
+                    &:first-child {
+                        margin-top: 6px;
+                    }
+
+                    span {
+                        font-weight: bold;
+                        margin-right: 8px;
+
+                        &::after {
+                            content: ":";
+                        }
+                    }
+                }
+            }// close #allComments
+        }
+        
+        
+        
     }
     
 
@@ -142,7 +220,7 @@ nav {
 
                 &:hover {
                     cursor: pointer;
-                    transform: scale(1.7);
+                    transform: scale(1.3);
                 }
             }
             
