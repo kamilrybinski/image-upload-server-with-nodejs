@@ -17,13 +17,22 @@ app.use(static(path.join(__dirname, '/public')));
 
 
 var loggedUser = "Anonimowy";
-var imgQty = 0;
-var d = new Date();
-var date_img = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDay() + "-" + d.getHours() + "-" + d.getMinutes() + "-" + d.getSeconds();
-var add_date = d.getDate() + "." + d.getMonth()+1 + "." + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes();;
 
-var users = ["kamil", "admin"],
-    passwords = ["kamil1", "admin1"];
+var imgQty = 0;
+var d = new Date(),
+    godziny = d.getHours(),
+    minuty = d.getMinutes(),
+    sekundy = d.getSeconds();
+
+if (godziny < 10)
+    godziny = "0" + godziny;
+if (minuty < 10) 
+    minuty = "0" + minuty;
+if (sekundy < 10)
+    sekundy = "0" + sekundy;
+
+var img_date = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDay() + "-" + godziny + "-" + minuty + "-" + sekundy;
+var add_date = d.getDate() + "." + d.getMonth()+1 + "." + d.getFullYear() + " " + godziny + ":" + minuty;
 
 
 fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
@@ -35,7 +44,7 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
         dest: './public/upload/',
         rename: function (fieldname, filename) {
             var obj = {
-                "nazwa": filename + "-" + date_img,
+                "nazwa": filename + "-" + img_date,
                 "autor": loggedUser,
                 "data_dodania": add_date
             };
@@ -49,7 +58,7 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
                 }
             });
 
-            return filename + "-" + date_img;
+            return filename + "-" + img_date;
             },
         onFileUploadStart: function (file) {
           console.log(file.originalname + ' is starting ...');
@@ -64,11 +73,14 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
     });
 
     app.post('/', function (req, res) {
+        loggedUser = req.body.username;
+        
         if (done === true) {
             console.log(req.files);
             console.log('Plik wrzucony');
             res.redirect('back');
-        } else {
+        } 
+        else {
             console.log('Blad pliku');        
             res.end('Blad pliku');
         }

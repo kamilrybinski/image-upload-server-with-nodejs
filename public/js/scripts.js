@@ -3,28 +3,43 @@
     'use strict';
 
     var loginMenuBtn = document.getElementById('loginMenuBtn'),
-        loginBtn = document.getElementById('loginBtn'),
         logoutMenuBtn = document.getElementById('logoutMenuBtn'),
         uploadMenuBtn = document.getElementById('uploadMenuBtn'),
-        closeLoginBox = document.getElementById('closeLogIn'),
         closeUploadBox = document.getElementById('closeUpload'),
-        logInBox = document.getElementById('logInBox'),
         uploadBox = document.getElementById('uploadBox'),
         who = document.getElementById('who'),
         whoName = document.getElementById('whoName'),
+        username = document.getElementById('username'),
         
         isLogged = false,
         whoIsLogged = "";
 
 
-    // loginBox
+    // login Menu
     loginMenuBtn.onclick = function () {
-        logInBox.style.display = 'block';
+        whoIsLogged = username.value;
+        isLogged = true;
+        
+        username.style.display = 'none';
+        loginMenuBtn.style.display = 'none';
+        logoutMenuBtn.style.display = 'flex';
+        
+        who.style.display = 'block';
+        whoName.innerHTML = whoIsLogged;
+                
+        document.getElementById('username').value = "";   
     };
-    closeLoginBox.onclick = function () {
-        logInBox.style.display = 'none';
+    // logout Menu
+    logoutMenuBtn.onclick = function () {
+        whoIsLogged = "";
+        isLogged = false;
+        
+        username.style.display = 'flex';
+        loginMenuBtn.style.display = 'flex';
+        logoutMenuBtn.style.display = 'none'; 
     };
-
+    
+    
     // uploadBox
     uploadMenuBtn.onclick = function () {
         document.getElementById('uploadBox').style.display = 'block';
@@ -33,44 +48,6 @@
         document.getElementById('uploadBox').style.display = 'none';
     };
 
-    
-    // Logowanie
-    function login() {
-        var username = document.getElementById('username').value,
-            password = document.getElementById('password').value,
-            u = ['admin'],
-            p = ['admin'];
-        
-        logInBox.style.display = 'none';
-
-        if (username === u[0] && password === p[0]) {
-            whoIsLogged = username;
-            who.style.display = 'block';
-            whoName.innerHTML = whoIsLogged;
-            logoutMenuBtn.style.display = 'flex';
-            loginMenuBtn.style.display = 'none';
-            isLogged = true;
-        } else {
-            //loginErrorBox.style.display = 'block'; //usun
-            isLogged = false;
-        }
-        
-        document.getElementById('username').value = "";
-        document.getElementById('password').value = "";
-    }
-    //loginBtn.addEventListener('click', login, false); //usun
-
-    
-    // Wylogowanie
-    function logout() {
-        who.style.display = 'none';
-        whoName.innerHTML = '';
-        logoutMenuBtn.style.display = 'none';
-        loginMenuBtn.style.display = 'flex';
-        isLogged = false;
-    }
-    logoutMenuBtn.addEventListener('click', logout, false);
-    
 
     // Tworzenie galerii
     function createGallery() {
@@ -93,7 +70,7 @@
                 itemsLen = 0;
             $.each(data, function(key, val) {
                 itemsLen = val.length; // ilosc plikow w db.json
-                console.log("Dlugosc tablicy: " + itemsLen);
+                //console.log("Dlugosc tablicy: " + itemsLen);
                 
                 for (i; i < itemsLen; i++) {
                     items.push(val[i]);
@@ -105,9 +82,9 @@
                 imgAuthors.push(items[j].autor);
                 imgDates.push(items[j].data_dodania)
             }
-            console.log(imgNames); //nazwy obrazkow
-            console.log(imgAuthors); // autorzy obrazkow
-            console.log(imgDates); // daty dodania obrazkow
+            //console.log(imgNames); //nazwy obrazkow
+            //console.log(imgAuthors); // autorzy obrazkow
+            //console.log(imgDates); // daty dodania obrazkow
             
             // ladowanie obrazkow
             var l = itemsLen;

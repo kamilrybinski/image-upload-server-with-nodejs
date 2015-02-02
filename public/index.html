@@ -14,6 +14,7 @@
                 <ul>
                     <p id="who">Zalogowany jako: <span id="whoName"></span></p>
                     <li id="logoutMenuBtn">Wyloguj</li>
+                    <input type="text" name="username" id="username" placeholder="Nazwa użytkownika">
                     <li id="loginMenuBtn">Zaloguj</li>
                     <li id="uploadMenuBtn">Wrzuć obrazek</li>
                 </ul>
@@ -124,16 +125,6 @@
                     <form id="uploadForm" enctype="multipart/form-data" action="/" method="post">
                         <input id="selectFileInput" type="file" name="myfile">
                         <input type="submit">
-                    </form>
-                </div>
-
-               <div id="logInBox">
-                    <button id="closeLogIn">x</button>
-                    <h1>Zaloguj się</h1>
-                    <form action="" method="post">
-                        <input type="text" id="username" name="username" placeholder="Login">
-                        <input type="password" id="password" name="password" placeholder="Hasło">
-                        <input type="submit" value="Zaloguj">
                     </form>
                 </div>
 
