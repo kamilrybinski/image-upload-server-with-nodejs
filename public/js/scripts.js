@@ -26,7 +26,7 @@
         
         who.style.display = 'block';
         whoName.innerHTML = whoIsLogged;
-                
+
         document.getElementById('username').value = "";   
     };
     // logout Menu
@@ -37,6 +37,8 @@
         username.style.display = 'flex';
         loginMenuBtn.style.display = 'flex';
         logoutMenuBtn.style.display = 'none'; 
+        
+        who.style.display = 'none';
     };
     
     
@@ -49,7 +51,6 @@
     };
 
 
-    // Tworzenie galerii
     function createGallery() {
         var imgPath = 'upload/',
             links = document.getElementsByTagName('a'),
@@ -70,7 +71,6 @@
                 itemsLen = 0;
             $.each(data, function(key, val) {
                 itemsLen = val.length; // ilosc plikow w db.json
-                //console.log("Dlugosc tablicy: " + itemsLen);
                 
                 for (i; i < itemsLen; i++) {
                     items.push(val[i]);
@@ -82,9 +82,6 @@
                 imgAuthors.push(items[j].autor);
                 imgDates.push(items[j].data_dodania)
             }
-            //console.log(imgNames); //nazwy obrazkow
-            //console.log(imgAuthors); // autorzy obrazkow
-            //console.log(imgDates); // daty dodania obrazkow
             
             // ladowanie obrazkow
             var l = itemsLen;
@@ -99,5 +96,9 @@
     }
 
     
-    createGallery(); 
+    // Tworzenie galerii
+    setInterval(function () {
+        createGallery();
+    }, 100);
+    
 }());

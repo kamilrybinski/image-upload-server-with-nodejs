@@ -9,13 +9,16 @@ var path = require('path');
 var multer = require('multer');
 var fs = require('fs');
 var port = process.env.PORT || 3000;
-var done = false;
+
+var uploaded = false;
 
 app.use(less(path.join(__dirname, 'public')));
 app.use('/upload', static(__dirname + '/public/upload'));
 app.use(static(path.join(__dirname, '/public')));
 
 
+//var whowho = $('#whoName');
+//console.log('logged user = ' + whowho.text());
 var loggedUser = "Anonimowy";
 
 var imgQty = 0;
@@ -65,7 +68,7 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
         },
         onFileUploadComplete: function (file) {
           console.log(file.fieldname + ' uploaded to  ' + file.path);
-          done = true;
+          uploaded = true;
         }
     }));
     app.get('/', function (req, res) {
@@ -75,7 +78,7 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
     app.post('/', function (req, res) {
         loggedUser = req.body.username;
         
-        if (done === true) {
+        if (uploaded === true) {
             console.log(req.files);
             console.log('Plik wrzucony');
             res.redirect('back');
