@@ -17,73 +17,73 @@
         whoIsLogged = "";
 
 
-    window.addEventListener("load", function(event) {
+    
+    // logowanie
+    var open = document.getElementById("open"); // zaloguj
+    var close = document.getElementById("close"); // wyloguj
+    var send = document.getElementById("send"); // wyslij
+    var message = document.getElementById("message");
+    var text = document.getElementById("comment");
+    var socket;
 
-        // logowanie
-        var open = document.getElementById("open"); // zaloguj
-        var close = document.getElementById("close"); // wyloguj
-        var send = document.getElementById("send"); // wyslij
-        var message = document.getElementById("message");
-        var text = document.getElementById("comment");
-        var socket;
-        
-        var username = document.getElementById('username');
-        var uploadImageInput = document.getElementById('uploadImageInput');
-        
+    var username = document.getElementById('username');
+    var uploadImageInput = document.getElementById('uploadImageInput');
+
+    close.disabled = true;
+    send.disabled = true;
+
+    open.addEventListener("click", function (event) {
+        open.disabled = true;
+        if (!socket || !socket.connected) {
+            socket = io({forceNew: true});
+        }
+        socket.on('connect', function () {
+            close.disabled = false;
+            send.disabled = false;
+            username.disabled = true;
+            console.log('Nawiązano połączenie przez Socket.io');
+            // login
+            socket.emit('login', username.value);
+        });
+        socket.on('disconnect', function () {
+            open.disabled = false;
+            username.disabled = false;
+            console.log('Połączenie przez Socket.io zostało zakończone');
+            //socket.emit('login', null);
+        });
+        socket.on("error", function (err) {
+            message.textContent = "Błąd połączenia z serwerem: '" + JSON.stringify(err) + "'";
+        });
+        socket.on("komentuj", function (data) {
+            var new_p = document.createElement('p');
+            new_p.innerHTML = "<strong>" + data.username + "</strong>: " + data.text;
+            message.appendChild(new_p);
+        });
+    });
+
+    // Zamyka polaczenie po kliknieciu "Wyloguj"
+    close.addEventListener("click", function (event) {
         close.disabled = true;
         send.disabled = true;
-        
-        open.addEventListener("click", function (event) {
-            open.disabled = true;
-            if (!socket || !socket.connected) {
-                socket = io({forceNew: true});
-            }
-            socket.on('connect', function () {
-                close.disabled = false;
-                send.disabled = false;
-                username.disabled = true;
-                console.log('Nawiązano połączenie przez Socket.io');
-                // login
-                socket.emit('login', username.value);
-            });
-            socket.on('disconnect', function () {
-                open.disabled = false;
-                username.disabled = false;
-                username.value = "";
-                console.log('Połączenie przez Socket.io zostało zakończone');
-            });
-            socket.on("error", function (err) {
-                message.textContent = "Błąd połączenia z serwerem: '" + JSON.stringify(err) + "'";
-            });
-            socket.on("komentuj", function (data) {
-                var new_p = document.createElement('p');
-                new_p.innerHTML = "<strong>" + data.username + "</strong>: " + data.text;
-                message.appendChild(new_p);
-            });
-        });
-
-        // Zamyka polaczenie po kliknieciu "Wyloguj"
-        close.addEventListener("click", function (event) {
-            close.disabled = true;
-            send.disabled = true;
-            open.disabled = false;
-            message.textContent = "";
-            socket.io.disconnect();
-            console.dir(socket);
-        });
-
-        // Wysyla komentarz po nacisnieciu przycisku "Dodaj"
-        send.addEventListener("click", function (event) {
-            socket.emit('message', {text: text.value, username: username.value});
-            text.value = "";
-        });
-        
-        uploadImageInput.addEventListener('click', function(event) {
-           socket.emit("add", username.value); 
-        });
-        
-    
+        open.disabled = false;
+        username.value = "";
+        message.textContent = "";
+        socket.io.disconnect();
+        delete users[socket.username];
+        console.dir(socket);
     });
+
+    // Wysyla komentarz po nacisnieciu przycisku "Dodaj"
+    send.addEventListener("click", function (event) {
+        socket.emit('message', {text: text.value, username: username.value});
+        text.value = "";
+    });
+/*
+    // Przesyla obrazek po kliknieciu
+    uploadImageInput.addEventListener('click', function(event) {
+        socket.emit("add", username.value);
+    });
+*/
     
     
     // uploadBox
@@ -150,4 +150,13 @@
         createGallery();
     }, 400);
     
+    
+    /*
+    createGallery();
+    document.getElementById('uploadImageInput').onclick = function () {
+        setTimeout(function () {
+            createGallery();
+        }, 200);
+    }
+    */
 }());
