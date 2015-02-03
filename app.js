@@ -86,6 +86,7 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
                   console.log("Dane zostały zapisane do: db.json");
                 }
             });
+            res.redirect('back');
         }
         else {
             console.log('Blad pliku');        

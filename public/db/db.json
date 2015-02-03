@@ -1,5 +1,24 @@
 {
     "photos": [
-
+        {
+            "nazwa": "img_logo_blue-2015-02-03-19-40-07.jpg",
+            "autor": "Anonimowy",
+            "data_dodania": "03.02.2015 19:40"
+        },
+        {
+            "nazwa": "12-2015-02-03-19-40-07.jpg",
+            "autor": "test",
+            "data_dodania": "03.02.2015 19:40"
+        },
+        {
+            "nazwa": "618px-CBC_Logo_1966-1974.svg-2015-02-03-19-25-46.png",
+            "autor": "test",
+            "data_dodania": "03.02.2015 19:25"
+        },
+        {
+            "nazwa": "Penguins-2015-02-03-19-22-51.jpg",
+            "autor": "per",
+            "data_dodania": "03.02.2015 19:22"
+        }
     ]
 }

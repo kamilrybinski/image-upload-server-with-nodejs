@@ -11,86 +11,94 @@
         imageBig = document.getElementById('imageBig'),
         closeComments = document.getElementById('closeComments'),
         who = document.getElementById('who'),
-        whoName = document.getElementById('whoName'),
-    
-        isLogged = false,
-        whoIsLogged = "";
+        whoName = document.getElementById('whoName');
     
     
-        // logowanie | sockets
-        var open = document.getElementById("open"); // zaloguj
-        var close = document.getElementById("close"); // wyloguj
-        var send = document.getElementById("send"); // wyslij
-        var message = document.getElementById("message");
-        var text = document.getElementById("comment");
-        var socket;
+    // logowanie | sockets
+    var open = document.getElementById("open"); // zaloguj
+    var close = document.getElementById("close"); // wyloguj
+    var send = document.getElementById("send"); // wyslij
+    var message = document.getElementById("message");
+    var text = document.getElementById("comment");
+    var socket;
 
-        var username = document.getElementById('username');
-        var author = document.getElementsByName('author')[0];
+    var username = document.getElementById('username');
+    var author = document.getElementsByName('author')[0];
 
+    close.disabled = true;
+    send.disabled = true;
+
+    open.addEventListener("click", function (event) {
+        open.disabled = true;
+        
+        if (!socket || !socket.connected) {
+            socket = io({forceNew: true});
+        }
+        socket.on('connect', function () {
+            close.disabled = false;
+            send.disabled = false;
+            username.disabled = true;
+            console.log('Nawiązano połączenie przez Socket.io');
+
+            author.value = username.value;
+
+            // login
+            socket.emit('login', username.value);
+        });
+        socket.on('disconnect', function () {
+            open.disabled = false;
+            username.disabled = false;
+            username.value = "";
+            console.log('Połączenie przez Socket.io zostało zakończone');
+        });
+        socket.on("error", function (err) {
+            message.textContent = "Błąd połączenia z serwerem: '" + JSON.stringify(err) + "'";
+        });
+        socket.on("echo", function (data) {
+            var new_p = document.createElement('p');
+            new_p.innerHTML = "<strong>" + data.username + "</strong>: " + data.text;
+            message.appendChild(new_p);
+        });
+    });
+
+    // Zamknij połączenie po kliknięciu guzika „Rozłącz”
+    close.addEventListener("click", function (event) {
         close.disabled = true;
         send.disabled = true;
+        open.disabled = false;
+        message.textContent = "";
+        author.value = "Anonimowy";
+        socket.io.disconnect();
+        console.dir(socket);
+    });
+    
+    // Wyślij komunikat do serwera po naciśnięciu guzika „Wyślij”
+    send.addEventListener("click", function (event) {
+        socket.emit('message', {text: text.value, username: username.value});
+        text.value = "";
+    });
 
-        open.addEventListener("click", function (event) {
-            open.disabled = true;
-            if (!socket || !socket.connected) {
-                socket = io({forceNew: true});
-            }
-            socket.on('connect', function () {
-                close.disabled = false;
-                send.disabled = false;
-                username.disabled = true;
-                console.log('Nawiązano połączenie przez Socket.io');
-
-                author.value = username.value;
-                
-                // login
-                socket.emit('login', username.value);
-            });
-            socket.on('disconnect', function () {
-                open.disabled = false;
-                username.disabled = false;
-                username.value = "";
-                console.log('Połączenie przez Socket.io zostało zakończone');
-            });
-            socket.on("error", function (err) {
-                message.textContent = "Błąd połączenia z serwerem: '" + JSON.stringify(err) + "'";
-            });
-            socket.on("echo", function (data) {
-                var new_p = document.createElement('p');
-                new_p.innerHTML = "<strong>" + data.username + "</strong>: " + data.text;
-                message.appendChild(new_p);
-            });
-        });
-
-        // Zamknij połączenie po kliknięciu guzika „Rozłącz”
-        close.addEventListener("click", function (event) {
-            close.disabled = true;
-            send.disabled = true;
-            open.disabled = false;
-            message.textContent = "";
-            author.value = "Anonimowy";
-            socket.io.disconnect();
-            console.dir(socket);
-        });
-
-        // Wyślij komunikat do serwera po naciśnięciu guzika „Wyślij”
-        send.addEventListener("click", function (event) {
-            socket.emit('message', {text: text.value, username: username.value});
-            text.value = "";
-        });
-
-
+    
+    
     // uploadBox
     uploadMenuBtn.onclick = function () { uploadBox.style.display = 'block'; };
     closeUploadBox.onclick = function () { uploadBox.style.display = 'none'; };
-    // zamykanie uploadBox po kliknieciu "Przeslij"
-    uploadImageInput.onclick = function () { 
-        uploadBox.style.display = "none"; 
-        createGallery();
+    // Zamykanie uploadBox po kliknieciu "Przeslij"
+    uploadImageInput.onclick = function () {
+        uploadBox.style.display = "none";
     };
-    // zamykanie komentarzy
+    // Zamykanie okna komentarzy
     closeComments.onclick = function () { imageComments.style.display = "none"; };
+    // Przyciski "Zaloguj" i "Wyloguj"
+    close.style.display = "none";
+    open.onclick = function () {
+        close.style.display = "block";
+        open.style.display = "none";
+    };
+    close.onclick = function () {
+        close.style.display = "none";
+        open.style.display = "block";
+    };
 
 
     function createGallery() {
