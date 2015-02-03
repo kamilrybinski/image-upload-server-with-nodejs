@@ -20,7 +20,6 @@
                 </ul>
             </nav>
             
-
             <div id="content">
                
                 <div id="imageComments">
@@ -140,6 +139,7 @@
                     <button id="closeUpload">x</button>
                     <h1>Wrzuć obrazek</h1>
                     <form id="uploadForm" enctype="multipart/form-data" action="/" method="post">
+                        <input type="text" name="author" value="Anonimowy" hidden>
                         <input id="selectFileInput" type="file" name="myfile">
                         <input type="submit" id="uploadImageInput">
                     </form>
