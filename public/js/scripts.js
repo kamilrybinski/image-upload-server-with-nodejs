@@ -32,16 +32,14 @@
         open.disabled = true;
         
         if (!socket || !socket.connected) {
-            socket = io({forceNew: true});
+        socket = io({forceNew: true});
         }
         socket.on('connect', function () {
             close.disabled = false;
             send.disabled = false;
             username.disabled = true;
             console.log('Nawiązano połączenie przez Socket.io');
-
             author.value = username.value;
-
             // login
             socket.emit('login', username.value);
         });
@@ -54,7 +52,7 @@
         socket.on("error", function (err) {
             message.textContent = "Błąd połączenia z serwerem: '" + JSON.stringify(err) + "'";
         });
-        socket.on("echo", function (data) {
+        socket.on("comment", function (data) {
             var new_p = document.createElement('p');
             new_p.innerHTML = "<strong>" + data.username + "</strong>: " + data.text;
             message.appendChild(new_p);
@@ -86,6 +84,10 @@
     // Zamykanie uploadBox po kliknieciu "Przeslij"
     uploadImageInput.onclick = function () {
         uploadBox.style.display = "none";
+        setTimeout(function () {
+            var z = 0;
+            $('body').keypress
+        }, 1000);
     };
     // Zamykanie okna komentarzy
     closeComments.onclick = function () { imageComments.style.display = "none"; };
@@ -154,6 +156,6 @@
     // Tworzenie galerii
     setInterval(function () {
         createGallery();
-    }, 400);
+    }, 500);
 
 }());

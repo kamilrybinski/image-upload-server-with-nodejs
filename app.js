@@ -18,10 +18,8 @@ app.use(static(path.join(__dirname, '/public')));
 
 
 var users = {};
-var loggedUser = "Anonimowy";
 var komentarze = [];
 
-var imgQty = 0;
 var d = new Date(),
     rok = d.getFullYear(),
     miesiac = d.getMonth()+1,
@@ -86,7 +84,7 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
                   console.log("Dane zostały zapisane do: db.json");
                 }
             });
-            res.redirect('back');
+            res.redirect('/');
         }
         else {
             console.log('Blad pliku');        
@@ -100,12 +98,12 @@ io.sockets.on("connection", function (socket) {
         socket.username = username;
         users[username] = socket;
         for (var i = 0; i < komentarze.length; i++) {
-            socket.emit("echo", komentarze[i]);
+            socket.emit("comment", komentarze[i]);
         }
     });
     socket.on("message", function (data) {
         komentarze.push(data);
-        io.sockets.emit("echo", data);
+        io.sockets.emit("comment", data);
     });
     socket.on("error", function (err) {
         console.dir(err);
