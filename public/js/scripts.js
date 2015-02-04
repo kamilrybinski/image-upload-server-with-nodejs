@@ -3,12 +3,6 @@ window.addEventListener("load", function (event) {
     /* global io: false */
     "use strict";
 
-    if (document.cookie == true) {
-        console.log('cookie jest');
-    } else {
-        console.log('brak cookie');
-    }
-    
     var uploadMenuBtn = document.getElementById('uploadMenuBtn'),
         closeUploadBox = document.getElementById('closeUpload'),
         uploadImageInput = document.getElementById('uploadImageInput'),
