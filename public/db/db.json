@@ -1,84 +1,19 @@
 {
     "photos": [
         {
-            "nazwa": "Desert-2015-02-04-11-12-01.jpg",
-            "autor": "tomek",
-            "data_dodania": "04.02.2015 11:12"
+            "nazwa": "12-2015-02-04-12-31-10.jpg",
+            "autor": "Tomek",
+            "data_dodania": "04.02.2015 12:31"
         },
         {
-            "nazwa": "Penguins-2015-02-04-11-01-40.jpg",
+            "nazwa": "Chrysanthemum-2015-02-04-12-31-10.jpg",
+            "autor": "Kamil",
+            "data_dodania": "04.02.2015 12:31"
+        },
+        {
+            "nazwa": "Desert-2015-02-04-12-31-10.jpg",
             "autor": "Anonimowy",
-            "data_dodania": "04.02.2015 11:01"
-        },
-        {
-            "nazwa": "Tulips-2015-02-04-11-01-40.jpg",
-            "autor": "Xd2",
-            "data_dodania": "04.02.2015 11:01"
-        },
-        {
-            "nazwa": "Wieża Eiffla-2015-02-04-11-01-40.jpg",
-            "autor": "test",
-            "data_dodania": "04.02.2015 11:01"
-        },
-        {
-            "nazwa": "7-2015-02-04-11-01-40.jpg",
-            "autor": "Nowy",
-            "data_dodania": "04.02.2015 11:01"
-        },
-        {
-            "nazwa": "1-2015-02-04-11-01-40.jpg",
-            "autor": "Super",
-            "data_dodania": "04.02.2015 11:01"
-        },
-        {
-            "nazwa": "img_logo_blue-2015-02-04-11-01-40.jpg",
-            "autor": "Anonimowy",
-            "data_dodania": "04.02.2015 11:01"
-        },
-        {
-            "nazwa": "15-2015-02-04-11-01-40.jpg",
-            "autor": "Anonimowy",
-            "data_dodania": "04.02.2015 11:01"
-        },
-        {
-            "nazwa": "Desert-2015-02-04-11-01-40.jpg",
-            "autor": "Anonimowy",
-            "data_dodania": "04.02.2015 11:01"
-        },
-        {
-            "nazwa": "Hydrangeas-2015-02-04-11-01-40.jpg",
-            "autor": "Test",
-            "data_dodania": "04.02.2015 11:01"
-        },
-        {
-            "nazwa": "big-2015-02-04-11-01-40.jpg",
-            "autor": "Patryk",
-            "data_dodania": "04.02.2015 11:01"
-        },
-        {
-            "nazwa": "Koala-2015-02-04-10-53-18.jpg",
-            "autor": "Anonimowy",
-            "data_dodania": "04.02.2015 10:53"
-        },
-        {
-            "nazwa": "Chrysanthemum-2015-02-04-10-53-18.jpg",
-            "autor": "kamil",
-            "data_dodania": "04.02.2015 10:53"
-        },
-        {
-            "nazwa": "14-2015-02-04-10-51-48.jpg",
-            "autor": "Anonimowy",
-            "data_dodania": "04.02.2015 10:51"
-        },
-        {
-            "nazwa": "9-2015-02-04-10-51-48.jpg",
-            "autor": "Anonimowy",
-            "data_dodania": "04.02.2015 10:51"
-        },
-        {
-            "nazwa": "16-2015-02-04-10-51-48.jpg",
-            "autor": "test",
-            "data_dodania": "04.02.2015 10:51"
+            "data_dodania": "04.02.2015 12:31"
         }
     ]
 }

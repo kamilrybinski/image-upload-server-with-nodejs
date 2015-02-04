@@ -86,7 +86,7 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
             res.redirect('/');
         }
         else {
-            console.log('Blad pliku');        
+            console.log('Blad pliku');
             res.end('Blad pliku');
         }
     });

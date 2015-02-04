@@ -3,6 +3,12 @@ window.addEventListener("load", function (event) {
     /* global io: false */
     "use strict";
 
+    if (document.cookie == true) {
+        console.log('cookie jest');
+    } else {
+        console.log('brak cookie');
+    }
+    
     var uploadMenuBtn = document.getElementById('uploadMenuBtn'),
         closeUploadBox = document.getElementById('closeUpload'),
         uploadImageInput = document.getElementById('uploadImageInput'),
@@ -104,6 +110,7 @@ window.addEventListener("load", function (event) {
             p_imgNums = document.getElementsByClassName('imgNum'),
             p_authors = document.getElementsByClassName('author'),
             p_addDate = document.getElementsByClassName('addDate'),
+            boxes = document.getElementsByClassName('box'),
             i = 0,
             j = 0,
             k = 0,
@@ -133,6 +140,7 @@ window.addEventListener("load", function (event) {
             // ladowanie obrazkow
             var l = itemsLen;
             for (k, l; k < itemsLen; k++, l--) {
+                boxes[k].style.display = "block";
                 images[k+1].src = imgPath + imgNames[k];
                 p_imgNums[k].innerHTML = l;
                 p_authors[k].innerHTML = imgAuthors[k];
