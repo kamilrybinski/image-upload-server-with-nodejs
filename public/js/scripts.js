@@ -1,4 +1,4 @@
-(function () {
+window.addEventListener("load", function (event) {
     /* jshint browser: true, globalstrict: true, devel: true */
     /* global io: false */
     "use strict";
@@ -153,4 +153,4 @@
         createGallery();
     }, 500);
 
-}());
+});
