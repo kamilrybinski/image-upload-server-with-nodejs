@@ -16,7 +16,6 @@ app.use(less(path.join(__dirname, 'public')));
 app.use('/upload', static(__dirname + '/public/upload'));
 app.use(static(path.join(__dirname, '/public')));
 
-
 var users = {};
 var komentarze = [];
 

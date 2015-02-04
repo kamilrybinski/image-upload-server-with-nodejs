@@ -32,7 +32,7 @@
         open.disabled = true;
         
         if (!socket || !socket.connected) {
-        socket = io({forceNew: true});
+            socket = io({forceNew: true});
         }
         socket.on('connect', function () {
             close.disabled = false;
@@ -77,17 +77,12 @@
     });
 
     
-    
     // uploadBox
     uploadMenuBtn.onclick = function () { uploadBox.style.display = 'block'; };
     closeUploadBox.onclick = function () { uploadBox.style.display = 'none'; };
     // Zamykanie uploadBox po kliknieciu "Przeslij"
     uploadImageInput.onclick = function () {
         uploadBox.style.display = "none";
-        setTimeout(function () {
-            var z = 0;
-            $('body').keypress
-        }, 1000);
     };
     // Zamykanie okna komentarzy
     closeComments.onclick = function () { imageComments.style.display = "none"; };
