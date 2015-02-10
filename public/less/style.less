@@ -61,6 +61,7 @@ header {
     }
 
     input#close {
+        display: none;
         border: none;
         width: 60px;
         background-color: rgb(255, 99, 71);
@@ -197,20 +198,15 @@ header {
                     span {
                         font-weight: bold;
                         margin-right: 8px;
-
-                        &::after {
-                            content: ":";
-                        }
                     }
                 }
             } // close #allComments
-        }   
+        }
     }
     
     #gallery {
         display: block;
         width: 100%;
-        position: relative;
         overflow-x: hidden;
         
         h1 {
@@ -222,7 +218,7 @@ header {
             float: left;
             display: flex;
             flex-direction: column;
-            padding: 20px;
+            padding: 20px 10px 0 10px;
             font-weight: bold;
             height: 200px;
             margin: 0 auto;
@@ -247,7 +243,7 @@ header {
                 padding-top: 5px;
             }
         }
-    }
+    } // close gallery
     
     
     #uploadBox {

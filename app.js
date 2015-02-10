@@ -14,6 +14,8 @@ var uploaded = false;
 
 app.use(less(path.join(__dirname, 'public')));
 app.use('/upload', static(__dirname + '/public/upload'));
+app.use('/js/jquery.min.js', static(__dirname + '/bower_components/jquery/dist/jquery.min.js'));
+app.use('/js/jquery.min.map', static(__dirname + '/bower_components/jquery/dist/jquery.min.map'));
 app.use(static(path.join(__dirname, '/public')));
 
 // daty
@@ -41,8 +43,6 @@ var add_date = dzien + "." + miesiac + "." + rok + " " + godzina + ":" + minuta;
 
 
 var users = {};
-//var komentarze = [];
-
 
 fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
     if (err) throw err;
@@ -96,7 +96,6 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
 });
 
 
-//var komentarze = {};
 io.sockets.on("connection", function (socket) {
     socket.on("login", function (username) {
         socket.username = username;
@@ -118,7 +117,7 @@ io.sockets.on("connection", function (socket) {
             if (err) throw err;
             var json = JSON.parse(data);
             
-            socket.emit("comment", json.komentarze); // bylo bez io
+            socket.emit("comment", json.komentarze);
         });
     });
     

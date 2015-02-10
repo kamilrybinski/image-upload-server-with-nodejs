@@ -11,7 +11,8 @@ window.addEventListener("load", function (event) {
         imageBig = document.getElementById('imageBig'),
         closeComments = document.getElementById('closeComments'),
         id = document.getElementById('imageBig'),
-        imageName = document.getElementById('imageName');
+        imageName = document.getElementById('imageName'),
+        gallery = document.getElementById('gallery');
     
     var clickedImage = "";
 
@@ -76,10 +77,10 @@ window.addEventListener("load", function (event) {
                 image = "";
             
             for (var i = 0; i < data.length; i++) {
-                image += "<div><img id='" + data[i].nazwa + "' src='" + imgPath + data[i].nazwa + "'><span class='imageAutor'>Autor: " + data[i].autor +  "</span><span class='imageAddDate'>Data dodania: " + data[i].data_dodania + "</span></div>";
+                image += "<div class='galleryImg'><img id='" + data[i].nazwa + "' src='" + imgPath + data[i].nazwa + "'><span class='imageAutor'>Autor: " + data[i].autor +  "</span><span class='imageAddDate'>Data dodania: " + data[i].data_dodania + "</span></div>";
             }
             
-            document.getElementById('gallery').innerHTML = image;
+            gallery.innerHTML = image;
             image = "";
 		});
         
@@ -118,7 +119,7 @@ window.addEventListener("load", function (event) {
         upload.style.display = "none";
         socket.io.disconnect();
         console.dir(socket);
-        document.getElementById('gallery').innerHTML = "<h1>Zaloguj się, aby zobaczyć galerię.</h1>";
+        gallery.innerHTML = "<h1>Zaloguj się, aby zobaczyć galerię.</h1>";
     });
     
     // Wyślij komunikat do serwera po naciśnięciu guzika „Wyślij”
@@ -126,7 +127,6 @@ window.addEventListener("load", function (event) {
         socket.emit("message", {text: text.value, username: username.value, imgName: imageName.value});
         text.value = "";
     });
-    
     
     
     // uploadBox
@@ -149,15 +149,15 @@ window.addEventListener("load", function (event) {
     });
     
     // Przyciski "Zaloguj" i "Wyloguj"
-    close.style.display = "none";
-    open.onclick = function () {
+    open.addEventListener("click", function () {
         close.style.display = "block";
         open.style.display = "none";
-    };
-    close.onclick = function () {
+    });
+    close.addEventListener("click", function () {
         close.style.display = "none";
         open.style.display = "block";
-    };
+    });
+
     
     // Okno komentarzy
     $('#gallery').click(function (event) {
@@ -166,6 +166,12 @@ window.addEventListener("load", function (event) {
         
         $('#imageComments').css("display", "block");
         $('#imageBig').attr('src', getImgSrc);
+        
+        // Automatyczne przewijanie komentarzy na dół
+        setInterval(function () {
+            var allComments = document.getElementById('allComments');
+            allComments.scrollTop = allComments.scrollHeight;
+        }, 100);
         
         // Kopiowanie id obrazka (nazwa obrazka) do ukrytego inputa
         $('#imageName').val(getImgName);
