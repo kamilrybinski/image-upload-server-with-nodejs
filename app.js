@@ -3,20 +3,21 @@ var app = require("express")();
 var httpServer = require("http").Server(app);
 var io = require("socket.io")(httpServer);
     
-var static = require('serve-static');
-var less = require('less-middleware');
-var path = require('path');
-var multer = require('multer');
-var fs = require('fs');
+var static = require("serve-static");
+var less = require("less-middleware");
+var path = require("path");
+var multer = require("multer");
+var fs = require("fs");
+var mongo = require("mongoose");
 var port = process.env.PORT || 3000;
 
 var uploaded = false;
 
-app.use(less(path.join(__dirname, 'public')));
-app.use('/upload', static(__dirname + '/public/upload'));
-app.use('/js/jquery.min.js', static(__dirname + '/bower_components/jquery/dist/jquery.min.js'));
-app.use('/js/jquery.min.map', static(__dirname + '/bower_components/jquery/dist/jquery.min.map'));
-app.use(static(path.join(__dirname, '/public')));
+app.use(less(path.join(__dirname, "public")));
+app.use("/upload", static(__dirname + "/public/upload"));
+app.use("/js/jquery.min.js", static(__dirname + "/bower_components/jquery/dist/jquery.min.js"));
+app.use("/js/jquery.min.map", static(__dirname + "/bower_components/jquery/dist/jquery.min.map"));
+app.use(static(path.join(__dirname, "/public")));
 
 // daty
 var d = new Date(),
@@ -44,32 +45,32 @@ var add_date = dzien + "." + miesiac + "." + rok + " " + godzina + ":" + minuta;
 
 var users = {};
 
-fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
+fs.readFile("public/db/db.json", "utf-8", function (err, data) {
     if (err) throw err;
     var json = JSON.parse(data);
 
     // Konfiguracja multera
     app.use(multer({
-        dest: './public/upload/',
+        dest: "./public/upload/",
         rename: function (fieldname, filename) {
             return filename + "-" + img_date;
         },
         onFileUploadStart: function (file) {
-            console.log(file.originalname + ' is starting ...');
+            console.log("Rozpoczecie uploadu " + file.originalname);
         },
         onFileUploadComplete: function (file) {
-            console.log(file.fieldname + ' uploaded to  ' + file.path);
+            console.log(file.fieldname + " wrzucony do  " + file.path);
             uploaded = true;
         }
     }));
-    app.get('/', function (req, res) {
-        res.sendfile('./public/index.html');
+    app.get("/", function (req, res) {
+        res.sendfile("./public/index.html");
     });
 
-    app.post('/', function (req, res) {
+    app.post("/", function (req, res) {
         if (uploaded === true) {
             //console.log(req.files);
-            console.log('Plik wrzucony');
+            console.log("Plik wrzucony");
             
             var obj = {
                 "nazwa": req.files.myfile.name,
@@ -79,18 +80,18 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
             
             json.photos.unshift(obj);
             
-            fs.writeFile('public/db/db.json', JSON.stringify(json, null, 4), function(err) {
+            fs.writeFile("public/db/db.json", JSON.stringify(json, null, 4), function(err) {
                 if (err) {
                   console.log(err);
                 } else {
                   console.log("Dane zostały zapisane do: db.json");
                 }
             });
-            res.end('koniec');
+            res.end("Koniec");
         }
         else {
-            console.log('Blad pliku');
-            res.end('Blad pliku');
+            console.log("Blad pliku");
+            res.end("Blad pliku");
         }
     });
 });
@@ -103,7 +104,7 @@ io.sockets.on("connection", function (socket) {
     });
     
     socket.on("gallery", function () {
-		fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
+		fs.readFile("public/db/db.json", "utf-8", function (err, data) {
 			if (err) throw err;
 			var json = JSON.parse(data);
             
@@ -113,7 +114,7 @@ io.sockets.on("connection", function (socket) {
     
     socket.on("comm", function () {
         //db_komentarze
-        fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
+        fs.readFile("public/db/db.json", "utf-8", function (err, data) {
             if (err) throw err;
             var json = JSON.parse(data);
             
@@ -123,7 +124,7 @@ io.sockets.on("connection", function (socket) {
     
     socket.on("message", function (data) {
         //db_komentarze
-        fs.readFile('public/db/db.json', 'utf-8', function (err, data2) {
+        fs.readFile("public/db/db.json", "utf-8", function (err, data2) {
             if (err) throw err;
             var json = JSON.parse(data2);
             
@@ -136,7 +137,7 @@ io.sockets.on("connection", function (socket) {
             json.komentarze.push(comment);
 
             //db_komentarze
-            fs.writeFile('public/db/db.json', JSON.stringify(json, null, 4), function(err) {
+            fs.writeFile("public/db/db.json", JSON.stringify(json, null, 4), function(err) {
                 if (err) {
                   console.log(err);
                 } else {
@@ -159,5 +160,5 @@ io.sockets.on("connection", function (socket) {
 
 
 httpServer.listen(port, function () {
-	console.log('Serwer HTTP działa na porcie ' + port);
+	console.log("Serwer HTTP działa na porcie " + port);
 });

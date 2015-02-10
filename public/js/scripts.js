@@ -3,31 +3,30 @@ window.addEventListener("load", function (event) {
     /* global io: false */
     "use strict";
 
-    var uploadMenuBtn = document.getElementById('uploadMenuBtn'),
-        closeUploadBox = document.getElementById('closeUpload'),
-        uploadImageInput = document.getElementById('uploadImageInput'),
-        uploadBox = document.getElementById('uploadBox'),
-        imageComments = document.getElementById('imageComments'),
-        imageBig = document.getElementById('imageBig'),
-        closeComments = document.getElementById('closeComments'),
-        id = document.getElementById('imageBig'),
-        imageName = document.getElementById('imageName'),
-        gallery = document.getElementById('gallery');
+    var closeUploadBox = document.getElementById("closeUpload"),
+        uploadImageInput = document.getElementById("uploadImageInput"),
+        uploadBox = document.getElementById("uploadBox"),
+        imageComments = document.getElementById("imageComments"),
+        imageBig = document.getElementById("imageBig"),
+        closeComments = document.getElementById("closeComments"),
+        id = document.getElementById("imageBig"),
+        imageName = document.getElementById("imageName"),
+        gallery = document.getElementById("gallery");
     
     var clickedImage = "";
-
-
+    
+    
     // logowanie | sockets
     var open = document.getElementById("open"); // zaloguj
     var close = document.getElementById("close"); // wyloguj
-    var upload = document.getElementById('uploadMenuBtn'); // upload
+    var upload = document.getElementById("uploadMenuBtn"); // upload
     var send = document.getElementById("send"); // wyslij
-    var message = document.getElementById("message");
-    var text = document.getElementById("comment");
+    var message = document.getElementById("message"); // komentarz
+    var text = document.getElementById("comment"); // pole na komentarz
     var socket;
 
-    var username = document.getElementById('username');
-    var author = document.getElementsByName('author')[0];
+    var username = document.getElementById("username");
+    var author = document.getElementsByName("author")[0];
 
     close.disabled = true;
     send.disabled = true;
@@ -39,22 +38,22 @@ window.addEventListener("load", function (event) {
             socket = io({forceNew: true});
         }
         
-        socket.on('connect', function () {
+        socket.on("connect", function () {
             close.disabled = false;
             send.disabled = false;
             username.disabled = true;
-            console.log('Nawiązano połączenie przez Socket.io');
+            console.log("Nawiązano połączenie przez Socket.io");
             upload.style.display = "block";
             author.value = username.value;
             socket.emit("login", username.value);
             socket.emit("gallery");
         });
         
-        socket.on('disconnect', function () {
+        socket.on("disconnect", function () {
             open.disabled = false;
             username.disabled = false;
             username.value = "";
-            console.log('Połączenie przez Socket.io zostało zakończone');
+            console.log("Połączenie przez Socket.io zostało zakończone");
         });
         
         socket.on("error", function (err) {
@@ -73,7 +72,7 @@ window.addEventListener("load", function (event) {
         });
         
         socket.on("showImages",function (data) {
-            var imgPath = 'upload/',
+            var imgPath = "upload/",
                 image = "";
             
             for (var i = 0; i < data.length; i++) {
@@ -85,13 +84,13 @@ window.addEventListener("load", function (event) {
 		});
         
         // ajax upload
-        $('#uploadForm').submit(function (event) {
+        $("#uploadForm").submit(function (event) {
             event.preventDefault();
             var formData = new FormData($(this)[0]);
             
             $.ajax({
-                url: $(this).attr('action'),
-                type: $(this).attr('method'),
+                url: $(this).attr("action"),
+                type: $(this).attr("method"),
                 data: formData,
                 async: false,
                 cache: false,
@@ -102,7 +101,7 @@ window.addEventListener("load", function (event) {
                     socket.emit("gallery");
                 },
                 error: function () {
-                    alert('Upload error!');
+                    alert("Problem z uploadem!");
                 }
             });
         }); // close submit
@@ -115,7 +114,6 @@ window.addEventListener("load", function (event) {
         send.disabled = true;
         open.disabled = false;
         message.textContent = "";
-        author.value = "Anonimowy";
         upload.style.display = "none";
         socket.io.disconnect();
         console.dir(socket);
@@ -129,12 +127,13 @@ window.addEventListener("load", function (event) {
     });
     
     
+    
     // uploadBox
-    uploadMenuBtn.addEventListener("click", function () {
-        uploadBox.style.display = 'block';
+    upload.addEventListener("click", function () {
+        uploadBox.style.display = "block";
     });
     closeUploadBox.addEventListener("click", function () {
-        uploadBox.style.display = 'none';
+        uploadBox.style.display = "none";
     });
     
     // Zamykanie uploadBox po kliknieciu "Przeslij"
@@ -160,21 +159,21 @@ window.addEventListener("load", function (event) {
 
     
     // Okno komentarzy
-    $('#gallery').click(function (event) {
+    $("#gallery").click(function (event) {
         var getImgSrc = event.target.src,
             getImgName = event.target.id; // name = id obrazka
         
-        $('#imageComments').css("display", "block");
-        $('#imageBig').attr('src', getImgSrc);
+        $("#imageComments").css("display", "block");
+        $("#imageBig").attr("src", getImgSrc);
         
         // Automatyczne przewijanie komentarzy na dół
         setInterval(function () {
-            var allComments = document.getElementById('allComments');
+            var allComments = document.getElementById("allComments");
             allComments.scrollTop = allComments.scrollHeight;
         }, 100);
         
         // Kopiowanie id obrazka (nazwa obrazka) do ukrytego inputa
-        $('#imageName').val(getImgName);
+        $("#imageName").val(getImgName);
         clickedImage = getImgName;
         message.innerHTML = "";
         socket.emit("comm");
