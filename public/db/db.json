@@ -1,19 +1,8 @@
 {
     "photos": [
-        {
-            "nazwa": "12-2015-02-04-12-31-10.jpg",
-            "autor": "Tomek",
-            "data_dodania": "04.02.2015 12:31"
-        },
-        {
-            "nazwa": "Chrysanthemum-2015-02-04-12-31-10.jpg",
-            "autor": "Kamil",
-            "data_dodania": "04.02.2015 12:31"
-        },
-        {
-            "nazwa": "Desert-2015-02-04-12-31-10.jpg",
-            "autor": "Anonimowy",
-            "data_dodania": "04.02.2015 12:31"
-        }
+ 
+    ],
+    "komentarze": [
+       
     ]
 }

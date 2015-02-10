@@ -16,9 +16,7 @@ app.use(less(path.join(__dirname, 'public')));
 app.use('/upload', static(__dirname + '/public/upload'));
 app.use(static(path.join(__dirname, '/public')));
 
-var users = {};
-var komentarze = [];
-
+// daty
 var d = new Date(),
     rok = d.getFullYear(),
     miesiac = d.getMonth()+1,
@@ -40,6 +38,11 @@ if (sekunda < 10)
 
 var img_date = rok + "-" + miesiac + "-" + dzien + "-" + godzina + "-" + minuta + "-" + sekunda;
 var add_date = dzien + "." + miesiac + "." + rok + " " + godzina + ":" + minuta;
+
+
+var users = {};
+//var komentarze = [];
+
 
 fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
     if (err) throw err;
@@ -65,7 +68,7 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
 
     app.post('/', function (req, res) {
         if (uploaded === true) {
-            console.log(req.files);
+            //console.log(req.files);
             console.log('Plik wrzucony');
             
             var obj = {
@@ -83,7 +86,7 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
                   console.log("Dane zostały zapisane do: db.json");
                 }
             });
-            res.redirect('/');
+            res.end('koniec');
         }
         else {
             console.log('Blad pliku');
@@ -92,20 +95,66 @@ fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
     });
 });
 
+
+//var komentarze = {};
 io.sockets.on("connection", function (socket) {
     socket.on("login", function (username) {
         socket.username = username;
         users[username] = socket;
-        for (var i = 0; i < komentarze.length; i++) {
-            socket.emit("comment", komentarze[i]);
-        }
     });
+    
+    socket.on("gallery", function () {
+		fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
+			if (err) throw err;
+			var json = JSON.parse(data);
+            
+            io.sockets.emit("showImages", json.photos);
+		});
+	});
+    
+    socket.on("comm", function () {
+        //db_komentarze
+        fs.readFile('public/db/db.json', 'utf-8', function (err, data) {
+            if (err) throw err;
+            var json = JSON.parse(data);
+            
+            socket.emit("comment", json.komentarze); // bylo bez io
+        });
+    });
+    
     socket.on("message", function (data) {
-        komentarze.push(data);
-        io.sockets.emit("comment", data);
+        //db_komentarze
+        fs.readFile('public/db/db.json', 'utf-8', function (err, data2) {
+            if (err) throw err;
+            var json = JSON.parse(data2);
+            
+            var comment = {
+                "nazwa": data.imgName,
+                "autor": data.username,
+                "tekst": data.text,
+            }
+       
+            json.komentarze.push(comment);
+
+            //db_komentarze
+            fs.writeFile('public/db/db.json', JSON.stringify(json, null, 4), function(err) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  console.log("Komentarz dodany.");
+                }
+            });
+
+            io.sockets.emit("comment", json.komentarze);
+        });
     });
+    
     socket.on("error", function (err) {
         console.dir(err);
+    });
+    
+    socket.on("disconnect", function(err){
+        delete users[socket.username];
     });
 });
 

@@ -10,21 +10,20 @@
     <body>
         
         <div class="container">
-            <nav>
-                <ul>
-                    <p id="who">Zalogowany jako: <span id="whoName"></span></p>
-                    <input type="text" name="username" id="username" placeholder="Nazwa użytkownika">
-                    <input id="open" type="button" value="Zaloguj">
-                    <input id="close" type="button" value="Wyloguj">
-                    <li id="uploadMenuBtn">Wrzuć obrazek</li>
-                </ul>
-            </nav>
-            
+            <header>
+                <input type="text" name="username" id="username" placeholder="Nazwa użytkownika">
+                <input id="open" type="button" value="Zaloguj">
+                <input id="close" type="button" value="Wyloguj">
+
+                <input type="button" value="Wrzuć obrazek" id="uploadMenuBtn">
+            </header>
+                        
             <div id="content">
                
                 <div id="imageComments">
                     <button id="closeComments">x</button>
                     <h1>Komentarze</h1>
+                    <input type="text" id="imageName" hidden>
                     <div id="leftSide">
                         <img src="" id="imageBig">
                     </div>
@@ -37,104 +36,13 @@
                         </div>
                     </div>
                 </div>
-
-               <div class="row">
-                    <div class="box">
-                        <img src="">
-                        <p class="imgNum"></p>
-                        <p class="author"></p>
-                        <p class="addDate"></p>
-                    </div>
-                    <div class="box">
-                        <img src="">
-                        <p class="imgNum"></p>
-                        <p class="author"></p>
-                        <p class="addDate"></p>
-                    </div>
-                    <div class="box">
-                        <img src="">
-                        <p class="imgNum"></p>
-                        <p class="author"></p>
-                        <p class="addDate"></p>
-                    </div>
-                    <div class="box">
-                        <img src="">
-                        <p class="imgNum"></p>
-                        <p class="author"></p>
-                        <p class="addDate"></p>
-                    </div>
-                    <div class="box">
-                        <img src="">
-                        <p class="imgNum"></p>
-                        <p class="author"></p>
-                        <p class="addDate"></p>
-                    </div>
+                
+                
+                <div id="gallery">
+                    <h1>Zaloguj się, aby zobaczyć galerię.</h1>
                 </div>
-                <div class="row">
-                    <div class="box">
-                        <img src="">
-                        <p class="imgNum"></p>
-                        <p class="author"></p>
-                        <p class="addDate"></p>
-                    </div>
-                    <div class="box">
-                        <img src="">
-                        <p class="imgNum"></p>
-                        <p class="author"></p>
-                        <p class="addDate"></p>
-                    </div>
-                    <div class="box">
-                        <img src="">
-                        <p class="imgNum"></p>
-                        <p class="author"></p>
-                        <p class="addDate"></p>
-                    </div>
-                    <div class="box">
-                        <img src="">
-                        <p class="imgNum"></p>
-                        <p class="author"></p>
-                        <p class="addDate"></p>
-                    </div>
-                    <div class="box">
-                        <img src="">
-                        <p class="imgNum"></p>
-                        <p class="author"></p>
-                        <p class="addDate"></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="box">
-                        <img src="">
-                        <p class="imgNum"></p>
-                        <p class="author"></p>
-                        <p class="addDate"></p>
-                    </div>
-                    <div class="box">
-                        <img src="">
-                        <p class="imgNum"></p>
-                        <p class="author"></p>
-                        <p class="addDate"></p>
-                    </div>
-                    <div class="box">
-                        <img src="">
-                        <p class="imgNum"></p>
-                        <p class="author"></p>
-                        <p class="addDate"></p>
-                    </div>
-                    <div class="box">
-                        <img src="">
-                        <p class="imgNum"></p>
-                        <p class="author"></p>
-                        <p class="addDate"></p>
-                    </div>
-                    <div class="box">
-                        <img src="">
-                        <p class="imgNum"></p>
-                        <p class="author"></p>
-                        <p class="addDate"></p>
-                    </div>
-                </div>
-
+                
+                
                 <div id="uploadBox">
                     <button id="closeUpload">x</button>
                     <h1>Wrzuć obrazek</h1>
@@ -146,6 +54,7 @@
                 </div>
 
             </div>
+            
             <footer>
                 <p>Copyright &copy; 2014 Kamil Rybinski</p>
             </footer>
