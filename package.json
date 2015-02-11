@@ -1,16 +1,15 @@
 {
-  "name": "app.js",
-  "version": "0.1.0",
-  "description": "Galeria obrazkow",
+  "name": "projectTIN",
+  "version": "1.0.0",
+  "description": "Projekt w Node.js na zaliczenie przedmiotu TIN.\r ===============================",
   "main": "app.js",
   "dependencies": {
     "bower": "^1.3.12",
-    "express": "^4.11.2",
-    "less-middleware": "^1.0.4",
-    "mongoose": "^3.8.23",
     "multer": "^0.1.7",
     "serve-static": "^1.8.1",
-    "socket.io": "^1.3.3"
+    "socket.io": "^1.3.3",
+    "express": "^4.11.2",
+    "less-middleware": "^1.0.4"
   },
   "devDependencies": {},
   "scripts": {
