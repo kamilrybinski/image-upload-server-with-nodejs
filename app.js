@@ -8,7 +8,6 @@ var less = require("less-middleware");
 var path = require("path");
 var multer = require("multer");
 var fs = require("fs");
-var mongo = require("mongoose");
 var port = process.env.PORT || 3000;
 
 var uploaded = false;
@@ -69,7 +68,6 @@ fs.readFile("public/db/db.json", "utf-8", function (err, data) {
 
     app.post("/", function (req, res) {
         if (uploaded === true) {
-            //console.log(req.files);
             console.log("Plik wrzucony");
             
             var obj = {
@@ -146,6 +144,7 @@ io.sockets.on("connection", function (socket) {
             });
 
             io.sockets.emit("comment", json.komentarze);
+            io.sockets.emit("newComment", data.imgName);
         });
     });
     

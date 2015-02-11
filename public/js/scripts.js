@@ -71,12 +71,24 @@ window.addEventListener("load", function (event) {
             }
         });
         
+        socket.on("newComment", function (data) {
+            var imgId = document.getElementById(data);
+            // pobiera span komentowanego obrazka
+            var spanId = document.getElementById(data + "+kom");
+            spanId.textContent = "Nowy komentarz";
+            
+            // po kliknieciu obrazka usuwa informacje o nowym komentarzu
+            imgId.addEventListener("click", function (event) {
+                spanId.textContent = "";
+            });
+        });
+        
         socket.on("showImages",function (data) {
             var imgPath = "upload/",
                 image = "";
             
             for (var i = 0; i < data.length; i++) {
-                image += "<div class='galleryImg'><img id='" + data[i].nazwa + "' src='" + imgPath + data[i].nazwa + "'><span class='imageAutor'>Autor: " + data[i].autor +  "</span><span class='imageAddDate'>Data dodania: " + data[i].data_dodania + "</span></div>";
+                image += "<div class='galleryImg'><img class='newComment' id='" + data[i].nazwa + "' src='" + imgPath + data[i].nazwa + "'><span class='nowyKomentarz' id='" + data[i].nazwa + "+kom'></span><span class='imageAutor'>Autor: " + data[i].autor +  "</span><span class='imageAddDate'>Data dodania: " + data[i].data_dodania + "</span></div>";
             }
             
             gallery.innerHTML = image;
@@ -93,7 +105,6 @@ window.addEventListener("load", function (event) {
                 type: $(this).attr("method"),
                 data: formData,
                 async: false,
-                cache: false,
                 contentType: false,
                 processData: false,
                 success: function (res) {
@@ -176,6 +187,7 @@ window.addEventListener("load", function (event) {
         $("#imageName").val(getImgName);
         clickedImage = getImgName;
         message.innerHTML = "";
+
         socket.emit("comm");
     });
 
