@@ -1,4 +1,4 @@
-<h1>Images gallery using sockets</h1>
+<h1>Images gallery</h1>
 
 <h2>Functions</h2>
 - simple login without signup
@@ -22,7 +22,7 @@
 <pre>
     <code>$ bower install</code>
 </pre>
-<p>Now you can run project. Just type:</p>
+<p>To start application type:</p>
 <pre>
     <code>$ node app.js</code>
 </pre>
