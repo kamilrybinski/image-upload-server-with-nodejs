@@ -1,14 +1,7 @@
-// Colors
-@nav-color: #2B2B2B;
-@content-color: #290909;
-@footer-color: #2B2B2B;
+// out: ../css/styles.css
 
-// Heights
-@nav-height: 8%;
-@content-height: 87%;
-@footer-height: 5%;
-
-
+@import '_variables';
+@import '_basic';
 
 .pos-absolute {
     position: absolute;
@@ -18,57 +11,43 @@
     left: 0;
 }
 
-* { margin: 0; padding: 0; }
-body {
-    font-family: Arial;
-    margin: auto;
-    .pos-absolute;
-}
-
-.container {
+#header {
     width: 100%;
-    height: 100%;
-    margin: auto;
-}
-
-
-header {
-    width: 100%;
-    height: @nav-height;
-    background-color: @nav-color;
+    height: @header-height;
+    background-color: @header-color;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    
+
     input {
         height: 34px;
-    }
-    
-    input#username {
-        margin-left: 15px;
-        height: 30px;
-    }
-        
-    input#open {
         border: none;
+        font-size: 12px;
+    }
+
+    input#username {
+        padding-left: 8px;
+        border: 1px solid lighten(@dark-blue, 20%);
+        height: 32px;
+        color: @dark-blue;
+    }
+
+    input#open {
         width: 60px;
         background-color: rgb(0, 128, 128);
-        color: #fff;
-        text-shadow: 0 0 1px #000;
-        margin-left: 3px;
-        margin-right: 20px;
-        
-        &:hover { cursor: pointer; }
+        margin-left: 5px;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 
     input#close {
         display: none;
         border: none;
         width: 60px;
-        background-color: rgb(255, 99, 71);
-        color: #fff;
-        text-shadow: 0 0 1px #000;
-        margin-left: 3px;
+        background-color: #e74c3c;
+        margin-left: 5px;
 
         &:hover {
             cursor: pointer;
@@ -79,19 +58,15 @@ header {
         display: none;
         border: none;
         width: 60px;
-        background-color: rgb(133, 77, 77);
-        color: #fff;
-        text-shadow: 0 0 1px #000;
-        margin-left: 3px;
+        background-color: #7f8c8d;
+        margin-left: 5px;
         width: 100px;
-        margin-right: 20px;
-        
+
         &:hover {
             cursor: pointer;
         }
     }
-
-} // close nav
+}
 
 #content {
     width: 100%;
@@ -100,7 +75,7 @@ header {
     flex-direction: column;
     background-color: @content-color;
     text-align: center;
-    
+
 
     #imageComments {
         display: none;
@@ -119,57 +94,54 @@ header {
             font-size: 16px;
             background-color: #f00;
             border: none;
-            color: #fff;            
-            
+            color: @white;
+
             &:hover {
                 cursor: pointer;
-                box-shadow: 0px 0px 2px #000;
             }
-        } 
-        
+        }
+
         h1 {
             display: flex;
             justify-content: center;
-            color: #fff;
             margin-top: 20px;
         }
-        
+
         #leftSide {
             width: 49%;
             height: 70%;
             margin-top: 4%;
             float: left;
-            
+
             img#imageBig {
-                border: 1px solid #fff;
+                border: 1px solid @white;
                 width: 94%;
                 height: auto;
                 margin: 20px 0 0 30px;
                 float: left;
             }
         }
-        
+
         #rightSide {
             width: 49%;
             height: 70%;
             margin-top: 4%;
             float: right;
             text-align: left;
-            
+
             input#comment {
-                float: left;
-                width: 50%;
                 height: 30px;
-                margin-left: 5%;
+                margin-left: 15px;
             }
 
             input#send {
-                float: left;
-                width: 15%;
                 height: 34px;
-                margin-left: 2%;
-                
-                &:hover { cursor: pointer; }
+                padding: 0 15px;
+                margin-left: 3px;
+
+                &:hover {
+                    cursor: pointer;
+                }
             }
 
             #allComments {
@@ -180,14 +152,12 @@ header {
                 margin-top: 20px;
                 margin-left: 40px;
                 overflow-x: hidden;
-                
+
                 h3 {
-                    color: #fff;
                     text-decoration: underline;
                 }
-                
+
                 p {
-                    color: #fff;
                     font-size: 14px;
                     margin-left: 5px;
                     margin-top: 2px;
@@ -201,20 +171,21 @@ header {
                         margin-right: 8px;
                     }
                 }
-            } // close #allComments
+            }
         }
     }
-    
+
     #gallery {
         display: block;
         width: 100%;
         overflow-x: hidden;
-        
+
         h1 {
-            color: #fff;
-            margin-top: 10%;
+            margin-top: 200px;
+            font-weight: 300;
+            color: @dark-blue;
         }
-        
+
         div {
             float: left;
             display: flex;
@@ -224,11 +195,11 @@ header {
             height: 200px;
             margin: 0 auto;
             text-align: center;
-            
+
             img {
                 width: 180px;
                 height: auto;
-                
+
                 &:hover {
                     cursor: pointer;
                 }
@@ -236,31 +207,29 @@ header {
 
             span {
                 float: left;
-                color: #fff;
+                color: @white;
                 font-size: 12px;
             }
-            
+
             .nowyKomentarz {
                 color: yellow;
-                text-shadow: 0 0 1px #000;
             }
-            
+
             .imageAutor {
                 padding-top: 5px;
             }
         }
-    } // close gallery
-    
-    
+    }
+
     #uploadBox {
         display: none;
         width: 400px;
         height: 200px;
-        border: 1px solid #000;
+        border: 1px solid @black;
         background-color: #114183;
         .pos-absolute;
         margin: auto;
-        
+
         #closeUpload {
             width: 25px;
             height: 25px;
@@ -269,28 +238,30 @@ header {
             font-size: 16px;
             background-color: #f00;
             border: none;
-            color: #fff;            
-            
+            color: @white;
+
             &:hover {
                 cursor: pointer;
-                box-shadow: 0px 0px 2px #000;
             }
         }
-        
+
         h1 {
             display: flex;
             justify-content: center;
-            color: #fff;
             margin-top: 30px;
         }
-        
+
         #selectFileInput {
             margin-top: 30px;
             margin-left: 80px;
             width: 200px;
-            color: #fff;
+            color: @white;
         }
-        
+
+        #uploadImageInput {
+            color: @black;
+        }
+
         #uploadFileBtn {
             width: 200px;
             margin-top: 6px;
@@ -302,16 +273,16 @@ header {
             text-align: center;
         }
     }
-    
+
     #logInBox {
         display: none;
         width: 400px;
         height: 200px;
-        border: 1px solid #000;
+        border: 1px solid @black;
         background-color: #114183;
         .pos-absolute;
         margin: auto;
-        
+
         #closeLogIn {
             width: 25px;
             height: 25px;
@@ -320,61 +291,56 @@ header {
             font-size: 16px;
             background-color: #f00;
             border: none;
-            color: #fff;            
-            
+
             &:hover {
                 cursor: pointer;
-                box-shadow: 0px 0px 2px #000;
             }
         }
-        
+
         h1 {
             display: flex;
             justify-content: center;
-            color: #fff;
             margin-top: 30px;
         }
-        
+
         .loginInputs {
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
             margin-top: 10px;
-            
+
             input {
                 width: 200px;
                 height: 30px;
 
                 &:nth-child(2) { margin-top: 5px; }
             }
-            
+
             input[type='submit'] {
                 width: 100px;
                 margin-top: 5px;
                 border: none;
-                
+
                 &:hover {
                     cursor: pointer;
                     background-color: #5f7cdd;
-                    color: #fff;
+                    color: @white;
                 }
             }
-        }    
-    } // close .logInBox
-    
-} // close .content
+        }
+    }
+}
 
-footer {
+#footer {
     width: 100%;
     height: @footer-height;
     display: flex;
     background-color: @footer-color;
     justify-content: center;
     align-items: center;
-    
+
     p {
         font-size: 12px;
-        color: #fff;
     }
-} // close footer
+}

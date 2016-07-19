@@ -12,17 +12,17 @@ window.addEventListener("load", function (event) {
         id = document.getElementById("imageBig"),
         imageName = document.getElementById("imageName"),
         gallery = document.getElementById("gallery");
-    
+
     var clickedImage = "";
-    
-    
-    // logowanie | sockets
-    var open = document.getElementById("open"); // zaloguj
-    var close = document.getElementById("close"); // wyloguj
+
+
+    // login | sockets
+    var open = document.getElementById("open"); // login
+    var close = document.getElementById("close"); // logout
     var upload = document.getElementById("uploadMenuBtn"); // upload
-    var send = document.getElementById("send"); // wyslij
-    var message = document.getElementById("message"); // komentarz
-    var text = document.getElementById("comment"); // pole na komentarz
+    var send = document.getElementById("send"); // send
+    var message = document.getElementById("message"); // comment
+    var text = document.getElementById("comment"); // comment input
     var socket;
 
     var username = document.getElementById("username");
@@ -37,7 +37,7 @@ window.addEventListener("load", function (event) {
         if (!socket || !socket.connected) {
             socket = io({forceNew: true});
         }
-        
+
         socket.on("connect", function () {
             close.disabled = false;
             send.disabled = false;
@@ -48,18 +48,18 @@ window.addEventListener("load", function (event) {
             socket.emit("login", username.value);
             socket.emit("gallery");
         });
-        
+
         socket.on("disconnect", function () {
             open.disabled = false;
             username.disabled = false;
             username.value = "";
             console.log("Połączenie przez Socket.io zostało zakończone");
         });
-        
+
         socket.on("error", function (err) {
             message.textContent = "Błąd połączenia z serwerem: '" + JSON.stringify(err) + "'";
         });
-        
+
         socket.on("comment", function (data) {
             message.innerHTML = "";
             for (var i = 0; i < data.length; i++) {
@@ -67,39 +67,39 @@ window.addEventListener("load", function (event) {
                 if (data[i].nazwa == clickedImage) {
                     new_p.innerHTML = "<strong>" + data[i].autor + "</strong>: " + data[i].tekst;
                     message.appendChild(new_p);
-                } 
+                }
             }
         });
-        
+
         socket.on("newComment", function (data) {
             var imgId = document.getElementById(data);
-            // pobiera span komentowanego obrazka
+            // Get commented image span
             var spanId = document.getElementById(data + "+kom");
             spanId.textContent = "Nowy komentarz";
-            
-            // po kliknieciu obrazka usuwa informacje o nowym komentarzu
+
+            // Remove notification after click
             imgId.addEventListener("click", function (event) {
                 spanId.textContent = "";
             });
         });
-        
+
         socket.on("showImages",function (data) {
             var imgPath = "upload/",
                 image = "";
-            
+
             for (var i = 0; i < data.length; i++) {
                 image += "<div class='galleryImg'><img class='newComment' id='" + data[i].nazwa + "' src='" + imgPath + data[i].nazwa + "'><span class='nowyKomentarz' id='" + data[i].nazwa + "+kom'></span><span class='imageAutor'>Autor: " + data[i].autor +  "</span><span class='imageAddDate'>Data dodania: " + data[i].data_dodania + "</span></div>";
             }
-            
+
             gallery.innerHTML = image;
             image = "";
 		});
-        
+
         // ajax upload
         $("#uploadForm").submit(function (event) {
             event.preventDefault();
             var formData = new FormData($(this)[0]);
-            
+
             $.ajax({
                 url: $(this).attr("action"),
                 type: $(this).attr("method"),
@@ -115,11 +115,11 @@ window.addEventListener("load", function (event) {
                     alert("Problem z uploadem!");
                 }
             });
-        }); // close submit
-        
-    }); // close OPEN
-    
-    // Zamknij połączenie po kliknięciu guzika „Rozłącz”
+        });
+
+    });
+
+    // Close connection after click „Rozłącz”
     close.addEventListener("click", function (event) {
         close.disabled = true;
         send.disabled = true;
@@ -130,15 +130,13 @@ window.addEventListener("load", function (event) {
         console.dir(socket);
         gallery.innerHTML = "<h1>Zaloguj się, aby zobaczyć galerię.</h1>";
     });
-    
-    // Wyślij komunikat do serwera po naciśnięciu guzika „Wyślij”
+
+    // Send message to serwer after click „Wyślij”
     send.addEventListener("click", function (event) {
         socket.emit("message", {text: text.value, username: username.value, imgName: imageName.value});
         text.value = "";
     });
-    
-    
-    
+
     // uploadBox
     upload.addEventListener("click", function () {
         uploadBox.style.display = "block";
@@ -146,19 +144,19 @@ window.addEventListener("load", function (event) {
     closeUploadBox.addEventListener("click", function () {
         uploadBox.style.display = "none";
     });
-    
-    // Zamykanie uploadBox po kliknieciu "Przeslij"
+
+    // Closing uploadBox after click "Przeslij"
     uploadImageInput.addEventListener("click", function () {
         uploadBox.style.display = "none";
     });
-    
-    // Zamykanie okna komentarzy
+
+    // Close comment window
     closeComments.addEventListener("click", function () {
         imageComments.style.display = "none";
         clickedImage = "";
     });
-    
-    // Przyciski "Zaloguj" i "Wyloguj"
+
+    // Buttons "Zaloguj" and "Wyloguj"
     open.addEventListener("click", function () {
         close.style.display = "block";
         open.style.display = "none";
@@ -168,22 +166,22 @@ window.addEventListener("load", function (event) {
         open.style.display = "block";
     });
 
-    
-    // Okno komentarzy
+
+    // Comments window
     $("#gallery").click(function (event) {
         var getImgSrc = event.target.src,
-            getImgName = event.target.id; // name = id obrazka
-        
+            getImgName = event.target.id; // name = img id
+
         $("#imageComments").css("display", "block");
         $("#imageBig").attr("src", getImgSrc);
-        
-        // Automatyczne przewijanie komentarzy na dół
+
+        // Automatic scrolling down on comments
         setInterval(function () {
             var allComments = document.getElementById("allComments");
             allComments.scrollTop = allComments.scrollHeight;
         }, 100);
-        
-        // Kopiowanie id obrazka (nazwa obrazka) do ukrytego inputa
+
+        // Coping img id (img name) to hidden input
         $("#imageName").val(getImgName);
         clickedImage = getImgName;
         message.innerHTML = "";
