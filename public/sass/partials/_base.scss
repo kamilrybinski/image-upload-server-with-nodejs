@@ -1,0 +1,31 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: $mainFont;
+}
+
+h1, h2, h3, h4, h5, h6, p, a, span, button, input, select, textarea {
+    margin: 0;
+    padding: 0;
+    font-family: $mainFont;
+    color: $white;
+}
+
+a, button, select, input {
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+
+a {
+    &:hover, &:focus, &:active, &:target {
+        text-decoration: none;
+    }
+}

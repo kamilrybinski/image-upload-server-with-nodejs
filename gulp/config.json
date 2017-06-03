@@ -1,0 +1,60 @@
+{
+    "all": {
+        "reload_all": [
+            "public/index.html",
+            "public/js/**/*.js"
+        ]
+    },
+    "html": {
+        "watchFiles": [
+            "public/index.html"
+        ]
+    },
+    "css": {
+        "app": {
+            "watchFiles": "public/sass/**/*.scss",
+            "files": "public/css/app.css",
+            "sassMainFile": "public/sass/app.scss",
+            "cssMainFile": "public/css/app.css",
+            "minifiedFilename": "app.min.css",
+            "cssDest": "public/css",
+            "cssDestBuild": "public/build/css",
+            "autoprefixerOptions": {
+                "browsers": ["last 50 versions"],
+                "cascade": false
+            },
+            "minifyOptions": {
+                "keepSpecialComments": 0
+            }
+        },
+
+        "vendors": {
+            "files": [
+                "bower_components/bootstrap/dist/css/bootstrap.css"
+            ],
+            "minifiedFilename": "vendors.min.css",
+            "cssDestBuild": "public/build/css"
+        }
+    },
+    "js": {
+        "app": {
+            "watchFiles": [
+                "public/js/**/*.js"
+            ],
+            "files": [
+                "public/js/app.js"
+            ],
+            "minifiedFilename": "app.min.js",
+            "destBuild": "public/build/js"
+        },
+
+        "vendors": {
+            "files": [
+                "./bower_components/jquery/dist/jquery.js",
+                "./bower_components/bootstrap/dist/js/bootstrap.js"
+            ],
+            "minifiedFilename": "vendors.min.js",
+            "destBuild": "./public/build/js"
+        }
+    }
+}

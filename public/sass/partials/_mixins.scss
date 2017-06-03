@@ -1,0 +1,27 @@
+/**
+ * Mixin: font-size
+ */
+@mixin font-size($size: 1.6) {
+    font-size: ($size * 10) + px;
+    font-size: $size + rem;
+}
+
+/**
+ * Mixin: opacity
+ */
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+/**
+ * Mixin: placeholder
+ */
+@mixin placeholder {
+    &.placeholder { @content; }
+    &:-moz-placeholder { @content; }
+    &::-moz-placeholder { @content; }
+    &:-ms-input-placeholder { @content; }
+    &::-webkit-input-placeholder { @content; }
+}

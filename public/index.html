@@ -1,53 +1,65 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Projekt TIN</title>
-        <link rel="stylesheet" type="text/css" href="/css/styles.css" />
-        <script src="/js/jquery.min.js"></script>
-    </head>
-    <body>
-        <header id="header">
-            <input type="text" name="username" id="username" placeholder="Nazwa użytkownika" />
-            <input id="open" type="button" value="Zaloguj" />
-            <input type="button" value="Wrzuć obrazek" id="uploadMenuBtn" />
-            <input id="close" type="button" value="Wyloguj" />
-        </header>
-        <section id="content">
-            <div id="imageComments">
-                <button id="closeComments">x</button>
-                <h1>Komentarze</h1>
-                <input type="text" id="imageName" hidden />
-                <div id="leftSide">
-                    <img src="" id="imageBig" alt="">
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <title>Images gallery</title>
+    <meta name="description" content="" />
+    <meta name="author" content="Kamil Rybinski" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <!-- Favicon and colors -->
+    <meta name="theme-color" content="#000000" />
+    <meta name="msapplication-navbutton-color" content="#000000" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#000000" />
+    <!-- Styles -->
+    <link rel="stylesheet" href="/build/css/vendors.min.css" />
+    <link rel="stylesheet" href="/build/css/app.min.css" />
+</head>
+<body>
+    <header class="header-top">
+        <div class="container-fluid">
+            <input type="text" id="username" class="form-control" name="username" placeholder="Username" autocomplete="off" />
+            <input type="button" id="btnLogin" class="btn btn-warning" value="Login" />
+            <input type="button" id="btnUploadImage" class="btn btn-primary hidden" value="Upload image" />
+            <input type="button" id="btnLogout" class="btn btn-warning hidden" value="Logout" />
+        </div>
+    </header>
+    <section id="content">
+        <div id="imageComments">
+            <button id="closeComments">x</button>
+            <h1>Comments</h1>
+            <input type="text" id="imageName" hidden />
+            <div id="leftSide">
+                <img src="" id="imageBig" alt="" />
+            </div>
+            <div id="rightSide">
+                <input type="text" placeholder="Comment" name="comment" id="comment" />
+                <input type="button" id="send" value="Add" />
+                <div id="allComments">
+                    <h3>Comments:</h3>
+                    <p id="message"></p>
                 </div>
-                <div id="rightSide">
-                    <input type="text" placeholder="Komentarz" name="comment" id="comment" />
-                    <input type="button" id="send" value="Dodaj" />
-                    <div id="allComments">
-                        <h3>Komentarze:</h3>
-                        <p id="message"></p>
-                    </div>
-                </div>
             </div>
-            <div id="gallery">
-                <h1>Zaloguj się, aby zobaczyć galerię.</h1>
-            </div>
-            <div id="uploadBox">
-                <button id="closeUpload">x</button>
-                <h1>Wrzuć obrazek</h1>
-                <form id="uploadForm" enctype="multipart/form-data" action="/" method="post">
-                    <input type="text" name="author" hidden />
-                    <input id="selectFileInput" type="file" name="myfile" />
-                    <input type="submit" id="uploadImageInput" />
-                </form>
-            </div>
-        </section>
-        <footer id="footer">
-            <p>Copyright &copy; 2016 Kamil Rybiński</p>
-        </footer>
-        <!-- Scripts -->
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="/js/scripts.js"></script>
-    </body>
+        </div>
+        <div id="gallery">
+            <h1 class="gallery-info">Please login if you want to see gallery.</h1>
+        </div>
+        <div id="uploadBox">
+            <button id="closeUpload">x</button>
+            <h1>Upload image</h1>
+            <form id="uploadForm" enctype="multipart/form-data" action="/" method="post">
+                <input type="text" name="author" hidden />
+                <input id="selectFileInput" type="file" name="myfile" />
+                <input type="submit" id="uploadImageInput" />
+            </form>
+        </div>
+    </section>
+    <!-- Scripts -->
+    <script src="/build/js/vendors.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/build/js/app.min.js"></script>
+</body>
 </html>

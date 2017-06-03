@@ -1,0 +1,22 @@
+.header-top {
+    width: 100%;
+    height: $header-height;
+    background-color: $header-bg-color;
+
+    & > div {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    input#username {
+        margin-right: 10px;
+        width: 200px;
+    }
+
+    input#btnUploadImage {
+        margin-right: 10px;
+    }
+}

@@ -1,8 +1,34 @@
 {
     "photos": [
-
+        {
+            "nazwa": "DSC03343-2017-06-03-10-43-59.JPG",
+            "data_dodania": "03.06.2017 10:43"
+        },
+        {
+            "nazwa": "DSC03812-2017-06-03-09-57-12.JPG",
+            "data_dodania": "03.06.2017 09:57"
+        }
     ],
     "komentarze": [
-
+        {
+            "nazwa": "DSC03812-2017-06-03-09-57-12.JPG",
+            "autor": "",
+            "tekst": "ddsf"
+        },
+        {
+            "nazwa": "DSC03812-2017-06-03-09-57-12.JPG",
+            "autor": "",
+            "tekst": "ff"
+        },
+        {
+            "nazwa": "DSC03812-2017-06-03-09-57-12.JPG",
+            "autor": "tdfs",
+            "tekst": "fsdfasdf"
+        },
+        {
+            "nazwa": "DSC03812-2017-06-03-09-57-12.JPG",
+            "autor": "tomek",
+            "tekst": "test"
+        }
     ]
 }
